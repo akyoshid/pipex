@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 06:08:42 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 06:42:18 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line_bonus.h"
 
-typedef struct t_data
+typedef struct s_data
 {
 	int		in_fd;
 	int		out_fd;
 	bool	has_here_doc;
 	char	**cmd_path;
 	char	***cmd_args;
-}			s_data;
+}			t_data;
 
 #define ERR_PARAM 0
 
