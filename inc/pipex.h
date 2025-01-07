@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 05:51:34 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 06:08:42 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ typedef struct t_data
 // check_argc.c
 void	check_argc(int argc);
 // proc_err.c
-void	proc_err(int err_code, char *param);
+void	proc_err(int exit_status, int err_code, char *param);
 
 #endif
