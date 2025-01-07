@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 16:26:49 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:26:52 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line_bonus.h"
 
+# define ERR_PARAM 0
+# define ERR_OPEN 1
+# define ERR_MALLOC 2
+
 typedef struct s_data
 {
 	int		in_fd;
@@ -33,11 +37,8 @@ typedef struct s_data
 	bool	has_here_doc;
 	char	**cmd_path;
 	char	***cmd_args;
-	int		cmd_count;
+	// int		cmd_count;
 }			t_data;
-
-#define ERR_PARAM 0
-#define ERR_OPEN 1
 
 // check_argc.c
 void	check_argc_bonus(int argc, char *argv[], t_data *data);

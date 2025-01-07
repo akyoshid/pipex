@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:50:13 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 09:49:58 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:29:00 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@ void	proc_err(int exit_status, int err_code, char *param)
 		ft_dprintf(2, param);
 	else if (err_code == ERR_OPEN)
 		ft_dprintf(2, "pipex: %s: %s\n", param, strerror(errno));
+	else if (err_code == ERR_MALLOC)
+		ft_dprintf(2, "pipex: malloc: %s\n", strerror(errno));
 	exit(exit_status);
 }
