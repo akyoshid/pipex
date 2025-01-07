@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 05:17:57 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 15:55:00 by akyoshid         ###   ########.fr       */
+/*   Created: 2025/01/07 15:54:48 by akyoshid          #+#    #+#             */
+/*   Updated: 2025/01/07 15:55:11 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	init_data(t_data *data)
 {
-	t_data	data;
-
-	init_data(&data);
-	check_argc(argc);
-	parse_files(&data, argc, argv);
-	// parse_cmds();
-	// parse_args();
-	(void)envp;
-	exit_pipex(&data);
-	return (0);
+	data->has_here_doc = false;
 }

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 06:42:18 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:55:31 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <stdbool.h>
+# include <errno.h>
+# include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include "../libft/inc/libft.h"
@@ -30,12 +33,22 @@ typedef struct s_data
 	bool	has_here_doc;
 	char	**cmd_path;
 	char	***cmd_args;
+	int		cmd_count;
 }			t_data;
 
 #define ERR_PARAM 0
+#define ERR_OPEN 1
 
 // check_argc.c
+void	check_argc_bonus(int argc, char *argv[], t_data *data);
 void	check_argc(int argc);
+// exit_pipex.c
+void	exit_pipex(t_data *data);
+// init_data.c
+void	init_data(t_data *data);
+// parse_files.c
+void	parse_files_bonus(t_data *data, int argc, char *argv[]);
+void	parse_files(t_data *data, int argc, char *argv[]);
 // proc_err.c
 void	proc_err(int exit_status, int err_code, char *param);
 
