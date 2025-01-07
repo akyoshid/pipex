@@ -18,7 +18,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	init_data(&data);
 	check_argc(argc);
-	parse_files(&data, argc, argv);
+	parse_files(argc, argv, &data);
 	// parse_cmds();
 	// parse_args();
 	(void)envp;

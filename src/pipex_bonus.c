@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:27:48 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 15:54:56 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:28:39 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	init_data(&data);
 	check_argc_bonus(argc, argv, &data);
-	parse_files_bonus(&data, argc, argv);
+	parse_files_bonus(argc, argv, &data);
 	// parse_cmds();
 	// parse_args();
 	(void)envp;

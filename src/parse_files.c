@@ -6,14 +6,14 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:08 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 15:52:36 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:29:13 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
 // It is guaranteed that argc >= 3.
-void	parse_files_bonus(t_data *data, int argc, char *argv[])
+void	parse_files_bonus(int argc, char *argv[], t_data *data)
 {
 	if (data->has_here_doc == true)
 	{
@@ -38,7 +38,7 @@ void	parse_files_bonus(t_data *data, int argc, char *argv[])
 	}
 }
 
-void	parse_files(t_data *data, int argc, char *argv[])
+void	parse_files(int argc, char *argv[], t_data *data)
 {
 	data->in_fd = open(argv[1], O_RDONLY);
 	if (data->in_fd == -1)

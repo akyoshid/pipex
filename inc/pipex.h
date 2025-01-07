@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 15:55:31 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:26:49 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	exit_pipex(t_data *data);
 // init_data.c
 void	init_data(t_data *data);
 // parse_files.c
-void	parse_files_bonus(t_data *data, int argc, char *argv[]);
-void	parse_files(t_data *data, int argc, char *argv[]);
+void	parse_files_bonus(int argc, char *argv[], t_data *data);
+void	parse_files(int argc, char *argv[], t_data *data);
 // proc_err.c
 void	proc_err(int exit_status, int err_code, char *param);
 
