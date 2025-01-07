@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:24:02 by akyoshid          #+#    #+#             */
-/*   Updated: 2024/12/23 02:33:25 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 05:23:43 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ void	ft_print_hex(
 void	ft_print_ptr(int fd, void *ptr, int *const cp);
 void	ft_print_varg(int fd, char const fmt, va_list *app, int *const cp);
 int		ft_printf(const char *fmt, ...);
-int		ft_fprintf(int fd, const char *fmt, ...);
+int		ft_dprintf(int fd, const char *fmt, ...);
 
 #endif

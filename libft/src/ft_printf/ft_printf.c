@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 17:22:21 by akyoshid          #+#    #+#             */
-/*   Updated: 2024/12/23 02:46:25 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/07 05:23:40 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_printf(const char *fmt, ...)
 	return (count);
 }
 
-int	ft_fprintf(int fd, const char *fmt, ...)
+int	ft_dprintf(int fd, const char *fmt, ...)
 {
 	va_list	ap;
 	int		count;
