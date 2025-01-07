@@ -13,8 +13,8 @@ INC =				$(INC_DIR)pipex.h
 
 # Source files
 SRC = \
-					$(SRC_DIR)xxx.c \
-					$(SRC_DIR)xxxx.c
+					$(SRC_DIR)check_argc.c \
+					$(SRC_DIR)proc_err.c
 MANDATORY_MAIN =	$(SRC_DIR)pipex.c
 BONUS_MAIN =		$(SRC_DIR)pipex_bonus.c
 
