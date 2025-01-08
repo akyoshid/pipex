@@ -17,7 +17,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_data	data;
 
 	init_data(&data);
-	check_argc(argc);
+	check_argc(argc, &data);
 	parse_files(argc, argv, &data);
 	// parse_cmds();
 	// parse_args();
