@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/08 18:58:15 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:09:33 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,17 @@
 # define ERR_PARAM 0
 # define ERR_OPEN 1
 # define ERR_READ 2
-# define ERR_MALLOC 3
-# define ERR_UNLINK 4
+# define ERR_WRITE 3
+# define ERR_CLOSE 4
+# define ERR_UNLINK 5
+# define ERR_MALLOC 6
+
+# define RAND_SUCCESS 0
+# define RAND_ERR_OPEN -1
+# define RAND_ERR_READ_FAIL -2
+# define RAND_ERR_READ_LACK -3
+# define RAND_ERR_CLOSE -4
+# define RAND_ERR_INVALID_LEN -5
 
 typedef struct s_data
 {

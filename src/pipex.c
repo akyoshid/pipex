@@ -23,5 +23,4 @@ int	main(int argc, char *argv[], char *envp[])
 	// parse_args();
 	(void)envp;
 	exit_pipex(&data);
-	return (0);
 }

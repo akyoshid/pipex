@@ -6,20 +6,12 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:08 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/08 18:38:52 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:09:50 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-# define RAND_SUCCESS 0
-# define RAND_ERR_OPEN -1
-# define RAND_ERR_READ -2
-# define RAND_ERR_INVALID_LEN -3
-
-// if it is successful, return 0
-// if open() fails, return -1
-// if read() fails, return -2
 int	ft_rand_bytes(char *dst, int len)
 {
 	int	fd;
@@ -31,9 +23,12 @@ int	ft_rand_bytes(char *dst, int len)
 	if (fd == -1)
 		return (RAND_ERR_OPEN);
 	read_rv = read(fd, dst, len);
-	close(fd);
-	if (read_rv != len)
-		return (RAND_ERR_READ);
+	if (close(fd) == -1)
+		return (RAND_ERR_CLOSE);
+	if (read_rv == -1)
+		return (RAND_ERR_READ_FAIL);
+	else if (read_rv != len)
+		return (RAND_ERR_READ_LACK);
 	return (RAND_SUCCESS);
 }
 
@@ -47,17 +42,21 @@ void	set_here_doc_path(t_data *data)
 	rand_rv = ft_rand_bytes(rand, 10);
 	if (rand_rv == RAND_ERR_OPEN)
 		proc_err(data, EXIT_FAILURE, ERR_OPEN, "/dev/urandom");
-	if (rand_rv == RAND_ERR_READ)
-		proc_err(data, EXIT_FAILURE, ERR_READ, "/dev/urandom");
-	i = 0;
-	while (i < 10)
+	else if (rand_rv == RAND_ERR_READ_FAIL)
+		proc_err(data, EXIT_FAILURE, ERR_READ, NULL);
+	else if (rand_rv == RAND_ERR_READ_LACK)
+		proc_err(data, EXIT_FAILURE, ERR_PARAM, "pipex: "
+			"ft_rand_bytes: Failed to read the specified number of bytes.");
+	else if (rand_rv == RAND_ERR_CLOSE)
+		proc_err(data, EXIT_FAILURE, ERR_CLOSE, NULL);
+	i = -1;
+	while (++i < 10)
 	{
 		rand[i] = rand[i] % 36;
 		if (rand[i] <= 9)
 			data->here_doc_path[i + 12] = rand[i] + '0';
 		else
 			data->here_doc_path[i + 12] = rand[i] - 10 + 'a';
-		i++;
 	}
 	data->here_doc_path[22] = '\0';
 }
@@ -81,7 +80,8 @@ void	parse_files_bonus(int argc, char *argv[], t_data *data)
 		proc_here_doc(argv, data);
 		if (argc == 3)
 		{
-			close(data->in_fd);
+			if (close(data->in_fd) == -1)
+				proc_err(data, EXIT_FAILURE, ERR_CLOSE, NULL);
 			if (unlink(data->here_doc_path) == -1)
 				proc_err(data, EXIT_FAILURE, ERR_UNLINK, NULL);
 			exit(EXIT_SUCCESS);
