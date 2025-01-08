@@ -1,6 +1,6 @@
 # Program name
 NAME =			pipex
-BONUS_NAME =	pipex_bonus
+# BONUS_NAME =	pipex_bonus
 
 # Directories
 INC_DIR =	inc/
@@ -45,15 +45,16 @@ AR = ar rcs
 all: $(NAME)
 
 bonus:
-	@make $(BONUS_NAME) BONUS=1
+	@make $(NAME) BONUS=1
+#	@make $(BONUS_NAME) BONUS=1
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT_DIR)
 	$(CC) $(CFLAGS) $(OBJ) -I$(INC_DIR) -o $@ $(LIBFT_LIB)
 
-$(BONUS_NAME): $(OBJ)
-	@make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJ) -I$(INC_DIR) -o $@ $(LIBFT_LIB)
+# $(BONUS_NAME): $(OBJ)
+# 	@make -C $(LIBFT_DIR)
+# 	$(CC) $(CFLAGS) $(OBJ) -I$(INC_DIR) -o $@ $(LIBFT_LIB)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INC)
 	@mkdir -p $(@D)
@@ -64,8 +65,9 @@ clean:
 	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	$(RM) $(NAME) $(BONUS_NAME)
+	$(RM) $(NAME)
 	@make fclean -C $(LIBFT_DIR)
+#	$(RM) $(NAME) $(BONUS_NAME)
 
 re: fclean all
 
