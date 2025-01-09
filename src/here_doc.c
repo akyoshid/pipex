@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:44 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/09 11:51:53 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:00:08 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	here_doc_error(char *argv[], t_data *data, int gnl_return_code)
 	if (gnl_return_code != GNL_SUCCESS_FIN)
 		proc_gnl_err(data, gnl_return_code);
 	else
-		ft_dprintf(2, "pipex: warning: here-document delimited "
+		ft_dprintf(2, "\npipex: warning: here-document delimited "
 			"by end-of-file (wanted `%s')\n", argv[2]);
 	return (false);
 }
