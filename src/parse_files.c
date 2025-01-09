@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:08 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/09 09:47:50 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:12:44 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,45 +98,52 @@ int	cmp_limiter(char *limiter, char *new_line)
 	return (return_value);
 }
 
+bool	here_doc_error(char *argv[], t_data *data, int gnl_return_code)
+{
+	if (gnl_return_code != GNL_SUCCESS_FIN)
+		proc_gnl_err(data, gnl_return_code);
+	else
+		ft_dprintf(2, "pipex: warning: here-document delimited "
+			"by end-of-file (wanted `%s')\n", argv[2]);
+	return (false);
+}
+
+bool	here_doc_success(char *argv[], t_data *data, char *new_line)
+{
+	if (cmp_limiter(argv[2], new_line) == 0)
+	{
+		free(new_line);
+		return (false);
+	}
+	else
+	{
+		write(data->in_fd, new_line, strlen(new_line));
+		free(new_line);
+		return (true);
+	}
+}
+
 void	proc_here_doc(char *argv[], t_data *data)
 {
 	char	*new_line;
 	int		gnl_return_code;
+	bool	loop_flag;
 
 	set_here_doc_path(data);
 	data->in_fd = open(data->here_doc_path, O_CREAT | O_EXCL | O_RDWR, 0666);
 	if (data->in_fd == -1)
 		proc_err(data, EXIT_FAILURE, ERR_OPEN, data->here_doc_path);
 	data->status = STATUS_AFTER_OPEN_INFILE;
-	while (1)
+	loop_flag = true;
+	while (loop_flag)
 	{
 		if (ft_dprintf(1, "> ") == -1)
 			proc_err(data, EXIT_FAILURE, ERR_WRITE, NULL);
 		new_line = get_next_line(STDIN_FILENO, &gnl_return_code);
 		if (new_line == NULL)
-		{
-			if (gnl_return_code != GNL_SUCCESS_FIN)
-				proc_gnl_err(data, gnl_return_code);
-			else
-			{
-				ft_dprintf(2, "pipex: warning: here-document delimited "
-					"by end-of-file (wanted `%s')\n", argv[2]);
-				break ;
-			}
-		}
+			loop_flag = here_doc_error(argv, data, gnl_return_code);
 		else
-		{
-			if (cmp_limiter(argv[2], new_line) == 0)
-			{
-				free(new_line);
-				break ;
-			}
-			else
-			{
-				write(data->in_fd, new_line, strlen(new_line));
-				free(new_line);
-			}
-		}
+			loop_flag = here_doc_success(argv, data, new_line);
 	}
 }
 
