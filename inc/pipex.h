@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/08 20:09:33 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:19:12 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@
 # define STATUS_AFTER_OPEN_INFILE 1
 # define STATUS_AFTER_OPEN_OUTFILE 2
 
-# define ERR_PARAM 0
-# define ERR_OPEN 1
-# define ERR_READ 2
-# define ERR_WRITE 3
-# define ERR_CLOSE 4
-# define ERR_UNLINK 5
-# define ERR_MALLOC 6
+# define ERR_NOT_PRINT 0
+# define ERR_PARAM 1
+# define ERR_OPEN 2
+# define ERR_READ 3
+# define ERR_WRITE 4
+# define ERR_CLOSE 5
+# define ERR_UNLINK 6
+# define ERR_MALLOC 7
 
 # define RAND_SUCCESS 0
 # define RAND_ERR_OPEN -1

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:50:13 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/08 19:50:07 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/08 21:19:34 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	print_err(int err_code, char *param)
 {
-	if (err_code == ERR_PARAM)
+	if (err_code == ERR_NOT_PRINT)
+		return ;
+	else if (err_code == ERR_PARAM)
 		ft_dprintf(2, param);
 	else if (err_code == ERR_OPEN)
 		ft_dprintf(2, "pipex: %s: %s\n", param, strerror(errno));
