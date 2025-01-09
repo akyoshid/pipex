@@ -15,6 +15,8 @@ INC =				$(INC_DIR)pipex.h
 SRC = \
 					$(SRC_DIR)check_argc.c \
 					$(SRC_DIR)exit_pipex.c \
+					$(SRC_DIR)here_doc_utils.c \
+					$(SRC_DIR)here_doc.c \
 					$(SRC_DIR)init_data.c \
 					$(SRC_DIR)parse_files.c \
 					$(SRC_DIR)proc_err.c

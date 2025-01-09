@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/08 21:19:12 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/09 11:55:23 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,18 @@ void	check_argc_bonus(int argc, char *argv[], t_data *data);
 void	check_argc(int argc, t_data *data);
 // exit_pipex.c
 void	exit_pipex(t_data *data);
+// here_doc_utils.c
+int		ft_rand_bytes(char *dst, int len);
+void	set_here_doc_path(t_data *data);
+void	proc_gnl_err(t_data *data, int return_code);
+int		cmp_limiter(char *limiter, char *new_line);
+// here_doc.c
+bool	here_doc_error(char *argv[], t_data *data, int gnl_return_code);
+bool	here_doc_success(char *argv[], t_data *data, char *new_line);
+void	proc_here_doc(char *argv[], t_data *data);
 // init_data.c
 void	init_data(t_data *data);
 // parse_files.c
-int		ft_rand_bytes(char *dst, int len);
-void	set_here_doc_path(t_data *data);
-void	proc_here_doc(char *argv[], t_data *data);
 void	parse_files_bonus(int argc, char *argv[], t_data *data);
 void	parse_files(int argc, char *argv[], t_data *data);
 // proc_err.c
