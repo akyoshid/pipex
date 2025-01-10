@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 08:47:04 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:08:09 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exit_pipex(t_data *data)
 	if (data->has_here_doc == true && unlink(data->here_doc_path) == -1)
 	{
 		print_err(ERR_UNLINK, NULL);
-		exit_status = EXIT_SUCCESS;
+		exit_status = EXIT_FAILURE;
 	}
 	clear_env_list(data);
 	exit(exit_status);
