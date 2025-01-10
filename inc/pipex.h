@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 18:06:04 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:32:33 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line_bonus.h"
 
-# define STATUS_MALLOC_ENVS 0
-# define STATUS_OPEN_INFILE 1
-# define STATUS_OPEN_OUTFILE 2
+# define STATUS_INITIAL 0
+# define STATUS_MALLOC_ENVS 1
+# define STATUS_OPEN_INFILE 2
+# define STATUS_OPEN_OUTFILE 3
 
 # define NO_ERROR -1
 # define ERR_NOT_PRINT 0
