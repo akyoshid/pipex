@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:50:13 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/08 21:19:34 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 08:16:39 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ void	proc_err(t_data *data, int exit_status, int err_code, char *param)
 		if (data->has_here_doc == true && unlink(data->here_doc_path) == -1)
 			print_err(ERR_UNLINK, NULL);
 	}
+	if (data->status >= STATUS_MALLOC_ENVS)
+		clear_env_list(data);
 	exit(exit_status);
 }

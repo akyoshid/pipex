@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/08 20:08:15 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 08:47:04 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	exit_pipex(t_data *data)
 		print_err(ERR_UNLINK, NULL);
 		exit_status = EXIT_SUCCESS;
 	}
+	clear_env_list(data);
 	exit(exit_status);
 }
