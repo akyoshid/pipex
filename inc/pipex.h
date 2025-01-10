@@ -27,8 +27,8 @@
 # include "../libft/inc/get_next_line_bonus.h"
 
 # define STATUS_BEFORE_OPEN_INFILE 0
-# define STATUS_AFTER_OPEN_INFILE 1
-# define STATUS_AFTER_OPEN_OUTFILE 2
+# define STATUS_OPEN_INFILE 1
+# define STATUS_OPEN_OUTFILE 2
 
 # define ERR_NOT_PRINT 0
 # define ERR_PARAM 1

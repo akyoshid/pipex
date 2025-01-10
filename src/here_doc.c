@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:44 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/09 16:00:08 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 07:48:46 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	proc_here_doc(char *argv[], t_data *data)
 	data->in_fd = open(data->here_doc_path, O_CREAT | O_EXCL | O_RDWR, 0666);
 	if (data->in_fd == -1)
 		proc_err(data, EXIT_FAILURE, ERR_OPEN, data->here_doc_path);
-	data->status = STATUS_AFTER_OPEN_INFILE;
+	data->status = STATUS_OPEN_INFILE;
 	loop_flag = true;
 	while (loop_flag)
 	{

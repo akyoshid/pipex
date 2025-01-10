@@ -35,9 +35,9 @@ void	print_err(int err_code, char *param)
 void	proc_err(t_data *data, int exit_status, int err_code, char *param)
 {
 	print_err(err_code, param);
-	if (data->status >= STATUS_AFTER_OPEN_OUTFILE && close(data->out_fd) == -1)
+	if (data->status >= STATUS_OPEN_OUTFILE && close(data->out_fd) == -1)
 		print_err(ERR_CLOSE, NULL);
-	if (data->status >= STATUS_AFTER_OPEN_INFILE)
+	if (data->status >= STATUS_OPEN_INFILE)
 	{
 		if (close(data->in_fd) == -1)
 			print_err(ERR_CLOSE, NULL);
