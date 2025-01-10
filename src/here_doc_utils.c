@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:22 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/09 11:51:58 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:00:15 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	set_here_doc_path(t_data *data)
 	ft_strlcpy(data->here_doc_path, "/tmp/sh-thd-", 23);
 	rand_rv = ft_rand_bytes(rand, 10);
 	if (rand_rv == RAND_ERR_OPEN)
-		proc_err(data, EXIT_FAILURE, ERR_OPEN, "/dev/urandom");
+		exit_pipex(data, EXIT_FAILURE, ERR_OPEN, "/dev/urandom");
 	else if (rand_rv == RAND_ERR_READ_FAIL)
-		proc_err(data, EXIT_FAILURE, ERR_READ, NULL);
+		exit_pipex(data, EXIT_FAILURE, ERR_READ, NULL);
 	else if (rand_rv == RAND_ERR_READ_LACK)
-		proc_err(data, EXIT_FAILURE, ERR_PARAM, "pipex: "
+		exit_pipex(data, EXIT_FAILURE, ERR_PARAM, "pipex: "
 			"ft_rand_bytes: Failed to read the specified number of bytes");
 	else if (rand_rv == RAND_ERR_CLOSE)
-		proc_err(data, EXIT_FAILURE, ERR_CLOSE, NULL);
+		exit_pipex(data, EXIT_FAILURE, ERR_CLOSE, NULL);
 	i = -1;
 	while (++i < 10)
 	{
@@ -64,9 +64,9 @@ void	set_here_doc_path(t_data *data)
 void	proc_gnl_err(t_data *data, int return_code)
 {
 	if (return_code == GNL_FAILURE_MALLOC)
-		proc_err(data, EXIT_FAILURE, ERR_MALLOC, NULL);
+		exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 	else if (return_code == GNL_FAILURE_READ)
-		proc_err(data, EXIT_FAILURE, ERR_READ, NULL);
+		exit_pipex(data, EXIT_FAILURE, ERR_READ, NULL);
 	else
 	{
 		if (return_code == GNL_FAILURE_BUFFER_SIZE)
@@ -75,7 +75,7 @@ void	proc_gnl_err(t_data *data, int return_code)
 		else if (return_code == GNL_FAILURE_FD)
 			ft_dprintf(STDERR_FILENO,
 				"pipex: get_next_line: Invalid fd\n");
-		proc_err(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
+		exit_pipex(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
 	}
 }
 

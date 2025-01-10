@@ -20,8 +20,7 @@ SRC = \
 					$(SRC_DIR)here_doc.c \
 					$(SRC_DIR)init_data.c \
 					$(SRC_DIR)parse_envs.c \
-					$(SRC_DIR)parse_files.c \
-					$(SRC_DIR)proc_err.c
+					$(SRC_DIR)parse_files.c
 MANDATORY_MAIN =	$(SRC_DIR)pipex.c
 BONUS_MAIN =		$(SRC_DIR)pipex_bonus.c
 

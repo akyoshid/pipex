@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 08:59:37 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:06:04 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define STATUS_OPEN_INFILE 1
 # define STATUS_OPEN_OUTFILE 2
 
+# define NO_ERROR -1
 # define ERR_NOT_PRINT 0
 # define ERR_PARAM 1
 # define ERR_OPEN 2
@@ -72,7 +73,10 @@ void	check_argc(int argc, t_data *data);
 void	clear_env_list(t_data *data);
 void	print_env_list(t_data *data);
 // exit_pipex.c
-void	exit_pipex(t_data *data);
+void	print_err(int err_code, char *param);
+void	set_exit_fail_and_print_err(
+			int *exit_status, int err_code, char *param);
+void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);
 // here_doc_utils.c
 int		ft_rand_bytes(char *dst, int len);
 void	set_here_doc_path(t_data *data);
@@ -91,8 +95,5 @@ void	parse_envs(char *envp[], t_data *data);
 // parse_files.c
 void	parse_files_bonus(int argc, char *argv[], t_data *data);
 void	parse_files(int argc, char *argv[], t_data *data);
-// proc_err.c
-void	print_err(int err_code, char *param);
-void	proc_err(t_data *data, int exit_status, int err_code, char *param);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 08:55:54 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 09:17:05 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:01:07 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,16 @@ void	parse_envs(char *envp[], t_data *data)
 	{
 		new_node = malloc_env();
 		if (new_node == NULL)
-			proc_err(data, EXIT_FAILURE, ERR_MALLOC, NULL);
+			exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 		add_back_env(data, new_node);
 		equal_p = ft_strchr(envp[i], '=');
 		new_node->key = (char *)malloc(sizeof(char) * (equal_p - envp[i] + 1));
 		if (new_node->key == NULL)
-			proc_err(data, EXIT_FAILURE, ERR_MALLOC, NULL);
+			exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 		new_node->value = (char *)malloc(
 				sizeof(char) * (strlen(envp[i]) - (equal_p - envp[i])));
 		if (new_node->value == NULL)
-			proc_err(data, EXIT_FAILURE, ERR_MALLOC, NULL);
+			exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 		ft_strlcpy(new_node->key, envp[i], equal_p - envp[i] + 1);
 		ft_strlcpy(new_node->value,
 			equal_p + 1, strlen(envp[i]) - (equal_p - envp[i]));

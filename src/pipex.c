@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:17:57 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 08:56:35 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:56:01 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int	main(int argc, char *argv[], char *envp[])
 	// parse_cmds(argc, argv, envp, &data);
 	// parse_args(argc, argv, envp, &data);
 	(void)envp;
-	exit_pipex(&data);
+	exit_pipex(&data, EXIT_SUCCESS, NO_ERROR, NULL);
 }

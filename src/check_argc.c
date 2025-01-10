@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:49:34 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/07 19:42:33 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:58:43 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	check_argc_bonus(int argc, char *argv[], t_data *data)
 	{
 		data->has_here_doc = true;
 		if (argc == 2)
-			proc_err(data, EXIT_FAILURE, ERR_PARAM,
+			exit_pipex(data, EXIT_FAILURE, ERR_PARAM,
 				"pipex: syntax error near unexpected token `newline'\n");
 	}
 	else
 	{
 		if (argc == 2)
-			proc_err(data, EXIT_FAILURE, ERR_PARAM,
+			exit_pipex(data, EXIT_FAILURE, ERR_PARAM,
 				"pipex: Invalid number of arguments\n"
 				"Usage: ./pipex infile cmd1 cmd2 cmd3 ... cmdn outfile\n");
 	}
@@ -36,7 +36,7 @@ void	check_argc(int argc, t_data *data)
 {
 	if (argc != 5)
 	{
-		proc_err(data, EXIT_FAILURE, ERR_PARAM,
+		exit_pipex(data, EXIT_FAILURE, ERR_PARAM,
 			"pipex: Invalid number of arguments\n"
 			"Usage: ./pipex infile cmd1 cmd2 outfile\n");
 	}
