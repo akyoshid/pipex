@@ -31,7 +31,7 @@ bool	here_doc_success(char *argv[], t_data *data, char *new_line)
 	}
 	else
 	{
-		if (write(data->in_fd, new_line, strlen(new_line)) == -1)
+		if (write(data->in_fd, new_line, ft_strlen(new_line)) == -1)
 		{
 			free(new_line);
 			exit_pipex(data, EXIT_FAILURE, ERR_WRITE, NULL);

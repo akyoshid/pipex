@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 08:55:54 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 17:01:07 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/11 15:48:59 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ void	parse_envs(char *envp[], t_data *data)
 		if (new_node->key == NULL)
 			exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 		new_node->value = (char *)malloc(
-				sizeof(char) * (strlen(envp[i]) - (equal_p - envp[i])));
+				sizeof(char) * (ft_strlen(envp[i]) - (equal_p - envp[i])));
 		if (new_node->value == NULL)
 			exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 		ft_strlcpy(new_node->key, envp[i], equal_p - envp[i] + 1);
 		ft_strlcpy(new_node->value,
-			equal_p + 1, strlen(envp[i]) - (equal_p - envp[i]));
+			equal_p + 1, ft_strlen(envp[i]) - (equal_p - envp[i]));
 		i++;
 	}
 }
