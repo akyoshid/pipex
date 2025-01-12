@@ -97,3 +97,27 @@ int	cmp_limiter(char *limiter, char *new_line)
 		new_line[new_line_len - 1] = '\n';
 	return (return_value);
 }
+
+void	close_and_open_here_doc_file(t_data *data)
+{
+	if (close(data->in_fd) == -1)
+	{
+		print_err(ERR_CLOSE, NULL);
+		if (unlink(data->here_doc_path) == -1)
+			print_err(ERR_UNLINK, NULL);
+		data->status--;
+		exit_pipex(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
+	}
+	else
+	{
+		data->in_fd = open(data->here_doc_path, O_RDONLY);
+		if (data->in_fd == -1)
+		{
+			print_err(ERR_OPEN, data->here_doc_path);
+			if (unlink(data->here_doc_path) == -1)
+				print_err(ERR_UNLINK, NULL);
+			data->status--;
+			exit_pipex(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
+		}
+	}
+}

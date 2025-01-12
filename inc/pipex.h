@@ -83,6 +83,7 @@ int		ft_rand_bytes(char *dst, int len);
 void	set_here_doc_path(t_data *data);
 void	proc_gnl_err(t_data *data, int return_code);
 int		cmp_limiter(char *limiter, char *new_line);
+void	close_and_open_here_doc_file(t_data *data);
 // here_doc.c
 bool	here_doc_error(char *argv[], t_data *data, int gnl_return_code);
 bool	here_doc_success(char *argv[], t_data *data, char *new_line);

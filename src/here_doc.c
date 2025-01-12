@@ -48,7 +48,7 @@ void	proc_here_doc(char *argv[], t_data *data)
 	bool	loop_flag;
 
 	set_here_doc_path(data);
-	data->in_fd = open(data->here_doc_path, O_CREAT | O_EXCL | O_RDWR, 0666);
+	data->in_fd = open(data->here_doc_path, O_CREAT | O_EXCL | O_WRONLY, 0666);
 	if (data->in_fd == -1)
 		exit_pipex(data, EXIT_FAILURE, ERR_OPEN, data->here_doc_path);
 	data->status = STATUS_OPEN_INFILE;
@@ -63,4 +63,5 @@ void	proc_here_doc(char *argv[], t_data *data)
 		else
 			loop_flag = here_doc_success(argv, data, new_line);
 	}
+	close_and_open_here_doc_file(data);
 }
