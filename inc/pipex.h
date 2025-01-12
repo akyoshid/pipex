@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/12 17:55:09 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:48:56 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		cmp_limiter(char *limiter, char *new_line);
 void	close_and_open_here_doc_file(t_data *data);
 void	print_here_doc(t_data *data);
 // here_doc.c
+void	here_doc_delete_tab(char *new_line);
 bool	here_doc_error(t_data *data, int gnl_return_code, t_heredoc *hd_data);
 bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data);
 void	proc_here_doc(char *argv[], t_data *data);

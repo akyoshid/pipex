@@ -6,11 +6,22 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:44 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/12 17:42:25 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/12 18:48:49 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+void	here_doc_delete_tab(char *new_line)
+{
+	int		count;
+
+	count = 0;
+	while (new_line[count] == '\t')
+		count++;
+	if (count > 0)
+		ft_strlcpy(new_line, new_line + count, ft_strlen(new_line) + 1);
+}
 
 bool	here_doc_error(t_data *data, int gnl_return_code, t_heredoc *hd_data)
 {
@@ -31,6 +42,8 @@ bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
 	}
 	else
 	{
+		if (hd_data->leading_hyphen == true)
+			here_doc_delete_tab(new_line);
 		if (write(data->in_fd, new_line, ft_strlen(new_line)) == -1)
 		{
 			free(new_line);
