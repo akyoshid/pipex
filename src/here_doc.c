@@ -6,25 +6,25 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:44 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 17:00:44 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:42:25 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-bool	here_doc_error(char *argv[], t_data *data, int gnl_return_code)
+bool	here_doc_error(t_data *data, int gnl_return_code, t_heredoc *hd_data)
 {
 	if (gnl_return_code != GNL_SUCCESS_FIN)
 		proc_gnl_err(data, gnl_return_code);
 	else
 		ft_dprintf(2, "\npipex: warning: here-document delimited "
-			"by end-of-file (wanted `%s')\n", argv[2]);
+			"by end-of-file (wanted `%s')\n", hd_data->limiter);
 	return (false);
 }
 
-bool	here_doc_success(char *argv[], t_data *data, char *new_line)
+bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
 {
-	if (cmp_limiter(argv[2], new_line) == 0)
+	if (cmp_limiter(hd_data->limiter, new_line) == 0)
 	{
 		free(new_line);
 		return (false);
@@ -43,15 +43,17 @@ bool	here_doc_success(char *argv[], t_data *data, char *new_line)
 
 void	proc_here_doc(char *argv[], t_data *data)
 {
-	char	*new_line;
-	int		gnl_return_code;
-	bool	loop_flag;
+	t_heredoc	hd_data;
+	bool		loop_flag;
+	char		*new_line;
+	int			gnl_return_code;
 
 	set_here_doc_path(data);
 	data->in_fd = open(data->here_doc_path, O_CREAT | O_EXCL | O_WRONLY, 0666);
 	if (data->in_fd == -1)
 		exit_pipex(data, EXIT_FAILURE, ERR_OPEN, data->here_doc_path);
 	data->status = STATUS_OPEN_INFILE;
+	parse_limiter(data, argv[2], &hd_data);
 	loop_flag = true;
 	while (loop_flag)
 	{
@@ -59,9 +61,10 @@ void	proc_here_doc(char *argv[], t_data *data)
 			exit_pipex(data, EXIT_FAILURE, ERR_WRITE, NULL);
 		new_line = get_next_line(STDIN_FILENO, &gnl_return_code);
 		if (new_line == NULL)
-			loop_flag = here_doc_error(argv, data, gnl_return_code);
+			loop_flag = here_doc_error(data, gnl_return_code, &hd_data);
 		else
-			loop_flag = here_doc_success(argv, data, new_line);
+			loop_flag = here_doc_success(data, new_line, &hd_data);
 	}
 	close_and_open_here_doc_file(data);
+	print_here_doc(data);
 }

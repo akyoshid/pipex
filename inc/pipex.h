@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 19:32:33 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/12 17:55:09 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,15 @@ typedef struct s_env
 	struct s_env	*next;
 }					t_env;
 
+typedef struct s_heredoc
+{
+	char	*limiter;
+	bool	leading_hyphen;
+	bool	quoted_limiter;
+	bool	in_quotation;
+	bool	single_quote;
+}			t_heredoc;
+
 // check_argc.c
 void	check_argc_bonus(int argc, char *argv[], t_data *data);
 void	check_argc(int argc, t_data *data);
@@ -78,6 +87,10 @@ void	print_err(int err_code, char *param);
 void	set_exit_fail_and_print_err(
 			int *exit_status, int err_code, char *param);
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);
+// here_doc_limiter.c
+void	parse_limiter_quotation(
+			char *limiter, t_heredoc *hd_data, int i, int len);
+void	parse_limiter(t_data *data, char *limiter, t_heredoc *hd_data);
 // here_doc_set_path.c
 int		ft_rand_bytes(char *dst, int len);
 void	set_here_doc_path(t_data *data);
@@ -85,9 +98,10 @@ void	set_here_doc_path(t_data *data);
 void	proc_gnl_err(t_data *data, int return_code);
 int		cmp_limiter(char *limiter, char *new_line);
 void	close_and_open_here_doc_file(t_data *data);
+void	print_here_doc(t_data *data);
 // here_doc.c
-bool	here_doc_error(char *argv[], t_data *data, int gnl_return_code);
-bool	here_doc_success(char *argv[], t_data *data, char *new_line);
+bool	here_doc_error(t_data *data, int gnl_return_code, t_heredoc *hd_data);
+bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data);
 void	proc_here_doc(char *argv[], t_data *data);
 // init_data.c
 void	init_data(t_data *data);

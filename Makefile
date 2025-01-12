@@ -16,6 +16,7 @@ SRC = \
 					$(SRC_DIR)check_argc.c \
 					$(SRC_DIR)envs_utils.c \
 					$(SRC_DIR)exit_pipex.c \
+					$(SRC_DIR)here_doc_limiter.c \
 					$(SRC_DIR)here_doc_set_path.c \
 					$(SRC_DIR)here_doc_utils.c \
 					$(SRC_DIR)here_doc.c \

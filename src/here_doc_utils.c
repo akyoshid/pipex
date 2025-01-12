@@ -72,3 +72,24 @@ void	close_and_open_here_doc_file(t_data *data)
 		}
 	}
 }
+
+void	print_here_doc(t_data *data)
+{
+	char	*new_line;
+	int		gnl_return_code;
+
+	while (1)
+	{
+		new_line = get_next_line(data->in_fd, &gnl_return_code);
+		if (new_line == NULL && gnl_return_code == 0)
+			return ;
+		else if (new_line == NULL && gnl_return_code != 0)
+		{
+			ft_printf("gnl error\n");
+			return ;
+		}
+		ft_printf("%s", new_line);
+		free(new_line);
+	}
+	close_and_open_here_doc_file(data);
+}
