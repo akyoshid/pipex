@@ -78,9 +78,10 @@ void	print_err(int err_code, char *param);
 void	set_exit_fail_and_print_err(
 			int *exit_status, int err_code, char *param);
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);
-// here_doc_utils.c
+// here_doc_set_path.c
 int		ft_rand_bytes(char *dst, int len);
 void	set_here_doc_path(t_data *data);
+// here_doc_utils.c
 void	proc_gnl_err(t_data *data, int return_code);
 int		cmp_limiter(char *limiter, char *new_line);
 void	close_and_open_here_doc_file(t_data *data);
