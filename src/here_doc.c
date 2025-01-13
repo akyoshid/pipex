@@ -35,6 +35,8 @@ bool	here_doc_error(t_data *data, int gnl_return_code, t_heredoc *hd_data)
 
 bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
 {
+	if (hd_data->leading_hyphen == true)
+		here_doc_delete_tab(new_line);
 	if (cmp_limiter(hd_data->limiter, new_line) == 0)
 	{
 		free(new_line);
