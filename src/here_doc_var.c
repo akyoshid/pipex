@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:16:02 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/13 16:16:33 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:25:35 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	calc_var_key_len(char *str)
 // `str` must be null-terminated.
 char	*search_var_value(t_data *data, char *str)
 {
-	t_env *current_node;
+	t_env	*current_node;
 
 	current_node = data->env_list;
 	while (current_node != NULL)

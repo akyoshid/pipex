@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:03:36 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/13 16:20:02 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:26:39 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	parse_limiter_quotation(
 	{
 		if (hd_data->in_quotation == true
 			&& ((hd_data->single_quote == true && limiter[i] == '\'')
-			|| (hd_data->single_quote == false && limiter[i] == '\"')))
+				|| (hd_data->single_quote == false && limiter[i] == '\"')))
 		{
 			hd_data->in_quotation = false;
 			ft_strlcpy(limiter + i, limiter + i + 1, len - i + 1);
