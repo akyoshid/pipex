@@ -19,6 +19,7 @@ SRC = \
 					$(SRC_DIR)here_doc_limiter.c \
 					$(SRC_DIR)here_doc_set_path.c \
 					$(SRC_DIR)here_doc_utils.c \
+					$(SRC_DIR)here_doc_var.c \
 					$(SRC_DIR)here_doc.c \
 					$(SRC_DIR)init_data.c \
 					$(SRC_DIR)parse_envs.c \

@@ -6,11 +6,30 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:03:36 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/12 17:55:28 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:20:02 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+int	cmp_limiter(char *limiter, char *new_line)
+{
+	int		new_line_len;
+	bool	trim_flag;
+	int		return_value;
+
+	new_line_len = ft_strlen(new_line);
+	trim_flag = false;
+	if (new_line[new_line_len - 1] == '\n')
+	{
+		new_line[new_line_len - 1] = '\0';
+		trim_flag = true;
+	}
+	return_value = ft_strcmp(limiter, new_line);
+	if (trim_flag == true)
+		new_line[new_line_len - 1] = '\n';
+	return (return_value);
+}
 
 void	parse_limiter_quotation(
 	char *limiter, t_heredoc *hd_data, int i, int len)

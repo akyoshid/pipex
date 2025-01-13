@@ -6,11 +6,22 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:22 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/12 17:42:33 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:21:04 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+void	here_doc_delete_tab(char *new_line)
+{
+	int		count;
+
+	count = 0;
+	while (new_line[count] == '\t')
+		count++;
+	if (count > 0)
+		ft_strlcpy(new_line, new_line + count, ft_strlen(new_line) + 1);
+}
 
 void	proc_gnl_err(t_data *data, int return_code)
 {
@@ -28,25 +39,6 @@ void	proc_gnl_err(t_data *data, int return_code)
 				"pipex: get_next_line: Invalid fd\n");
 		exit_pipex(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
 	}
-}
-
-int	cmp_limiter(char *limiter, char *new_line)
-{
-	int		new_line_len;
-	bool	trim_flag;
-	int		return_value;
-
-	new_line_len = ft_strlen(new_line);
-	trim_flag = false;
-	if (new_line[new_line_len - 1] == '\n')
-	{
-		new_line[new_line_len - 1] = '\0';
-		trim_flag = true;
-	}
-	return_value = ft_strcmp(limiter, new_line);
-	if (trim_flag == true)
-		new_line[new_line_len - 1] = '\n';
-	return (return_value);
 }
 
 void	close_and_open_here_doc_file(t_data *data)
