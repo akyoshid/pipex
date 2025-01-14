@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:16:02 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/14 15:46:59 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:18:20 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	*replace_by_var_value(
 	int		var_value_len;
 
 	src_len = ft_strlen(src);
-	var_value_len = ft_strlen(var_value);
 	if (var_value == NULL)
 	{
 		ft_strlcpy(src + *i, src + *i + var_key_len, src_len - *i + 1);
@@ -62,6 +61,7 @@ char	*replace_by_var_value(
 	}
 	else
 	{
+		var_value_len = ft_strlen(var_value);
 		new = (char *)malloc(
 				sizeof(char) * (src_len + 1 - var_key_len + var_value_len));
 		if (new == NULL)
