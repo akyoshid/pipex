@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:16:02 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/13 16:25:35 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:46:59 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*search_var_value(t_data *data, char *str)
 }
 
 char	*replace_by_var_value(
-	char *src, int i, int var_key_len, char *var_value)
+	char *src, int *i, int var_key_len, char *var_value)
 {
 	char	*new;
 	int		src_len;
@@ -57,7 +57,7 @@ char	*replace_by_var_value(
 	var_value_len = ft_strlen(var_value);
 	if (var_value == NULL)
 	{
-		ft_strlcpy(src + i, src + i + var_key_len, src_len - i + 1);
+		ft_strlcpy(src + *i, src + *i + var_key_len, src_len - *i + 1);
 		return (src);
 	}
 	else
@@ -66,11 +66,12 @@ char	*replace_by_var_value(
 				sizeof(char) * (src_len + 1 - var_key_len + var_value_len));
 		if (new == NULL)
 			return (free(src), NULL);
-		ft_strncpy(new, src, i);
-		ft_strncpy(new + i, var_value, var_value_len);
-		ft_strlcpy(new + i + var_value_len,
-			src + i + var_key_len, (src_len + 1 - var_key_len - i));
+		ft_strncpy(new, src, *i);
+		ft_strncpy(new + *i, var_value, var_value_len);
+		ft_strlcpy(new + *i + var_value_len,
+			src + *i + var_key_len, (src_len + 1 - var_key_len - *i));
 		free(src);
+		*i += var_value_len;
 		return (new);
 	}
 }
@@ -92,7 +93,7 @@ char	*here_doc_expand_var(t_data *data, char *src)
 			src[i + var_key_len] = '\0';
 			var_value = search_var_value(data, src + i + 1);
 			src[i + var_key_len] = temp;
-			src = replace_by_var_value(src, i, var_key_len, var_value);
+			src = replace_by_var_value(src, &i, var_key_len, var_value);
 			if (src == NULL)
 				exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 		}

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/13 16:20:42 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:51:41 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	set_here_doc_path(t_data *data);
 int		calc_var_key_len(char *str);
 char	*search_var_value(t_data *data, char *str);
 char	*replace_by_var_value(
-			char *src, int i, int var_key_len, char *var_value);
+			char *src, int *i, int var_key_len, char *var_value);
 char	*here_doc_expand_var(t_data *data, char *src);
 // here_doc_utils.c
 void	here_doc_delete_tab(char *new_line);
