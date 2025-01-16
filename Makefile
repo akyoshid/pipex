@@ -22,6 +22,8 @@ SRC = \
 					$(SRC_DIR)here_doc_var.c \
 					$(SRC_DIR)here_doc.c \
 					$(SRC_DIR)init_data.c \
+					$(SRC_DIR)parse_ast_utils.c \
+					$(SRC_DIR)parse_ast.c \
 					$(SRC_DIR)parse_envs.c \
 					$(SRC_DIR)parse_files.c
 MANDATORY_MAIN =	$(SRC_DIR)pipex.c

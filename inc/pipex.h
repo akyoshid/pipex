@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/16 16:58:16 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:37:46 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define STATUS_MALLOC_ENVS 1
 # define STATUS_OPEN_INFILE 2
 # define STATUS_OPEN_OUTFILE 3
+# define STATUS_PARSE_AST 4
 
 # define NO_ERROR -1
 # define ERR_NOT_PRINT 0
@@ -125,6 +126,16 @@ bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data);
 void	proc_here_doc(char *argv[], t_data *data);
 // init_data.c
 void	init_data(t_data *data);
+// parse_ast_utils.c
+void	print_ast(t_ast *node);
+void	free_command_argv(char **argv);
+void	clear_ast(t_ast *node);
+// parse_ast.c
+t_ast	*create_node(t_node_type type);
+t_ast	*parse_command(char *arg);
+t_ast	*wrapped_parse_command(char *arg, t_data *data, t_ast *root);
+t_ast	*create_pipe(t_data *data, t_ast *left, t_ast *right);
+t_ast	*parse_ast(int argc, char *argv[], t_data *data);
 // parse_envs.c
 t_env	*malloc_env(void);
 void	add_back_env(t_data *data, t_env *new);

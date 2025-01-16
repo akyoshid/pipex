@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 18:05:41 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:32:44 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	set_exit_fail_and_print_err(int *exit_status, int err_code, char *param)
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param)
 {
 	print_err(err_code, param);
+	if (data->status >= STATUS_PARSE_AST)
+		clear_ast(data->ast_root);
 	if (data->status >= STATUS_OPEN_OUTFILE && close(data->out_fd) == -1)
 		set_exit_fail_and_print_err(&exit_status, ERR_CLOSE, NULL);
 	if (data->status >= STATUS_OPEN_INFILE)
