@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/16 07:11:08 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:58:16 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_data
 	int				out_fd;
 	bool			has_here_doc;
 	char			here_doc_path[23];
-	t_ast			*ast_root;
+	struct s_ast	*ast_root;
 	int				status;
 }					t_data;
 
@@ -87,7 +87,6 @@ typedef struct s_ast
 	struct s_ast	*left;
 	struct s_ast	*right;
 	char			**argv;
-	char			*path;
 }					t_ast;
 
 // check_argc.c
