@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:47:17 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/16 18:28:27 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:36:47 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 #include "../../inc/libft.h"
 
-static int	check_include_sep(char c, char *sep)
+static int	check_include_sep(char const c, char *sep)
 {
 	int	i;
 
@@ -77,7 +77,7 @@ static char	*ft_storeword(char const **s, char *sep)
 	int		len;
 
 	len = 0;
-	while (**s != '\0' && (check_include_sep(*s, sep) == 0))
+	while (**s != '\0' && (check_include_sep(**s, sep) == 0))
 	{
 		len++;
 		(*s)++;
