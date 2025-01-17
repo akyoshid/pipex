@@ -15,6 +15,10 @@ INC =				$(INC_DIR)pipex.h
 SRC = \
 					$(SRC_DIR)check_argc.c \
 					$(SRC_DIR)envs_utils.c \
+					$(SRC_DIR)exec_ast_utils.c \
+					$(SRC_DIR)exec_ast.c \
+					$(SRC_DIR)exec_command.c \
+					$(SRC_DIR)exec_pipe.c \
 					$(SRC_DIR)exit_pipex.c \
 					$(SRC_DIR)here_doc_limiter.c \
 					$(SRC_DIR)here_doc_set_path.c \

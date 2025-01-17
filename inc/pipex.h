@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 16:49:00 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:07:07 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,19 @@ void	check_argc(int argc, t_data *data);
 // envs_utils.c
 void	clear_env_list(t_data *data);
 void	print_env_list(t_data *data);
+
+
+// exec_ast_utils.c
+int		get_exit_status(int status);
+// exec_ast.c
+char	*find_command(char *cmd, t_data *data);
+int		exec_ast(t_ast *node, t_data *data);
+// exec_command.c
+int		exec_command(t_ast *node, t_data *data);
+// exec_pipe.c
+int		exec_pipe(t_ast *node, t_data *data);
+
+
 // exit_pipex.c
 void	print_err(int err_code, char *param);
 void	set_exit_fail_and_print_err(
