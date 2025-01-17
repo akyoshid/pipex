@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:04:59 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 17:05:45 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:18:26 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 char	*find_command(char *cmd, t_data *data)
 {
+	char	*path;
+
 	(void)data;
-	return(cmd);
+	path = ft_strdup(cmd);
+	return(path);
 }
 
 int	exec_command(t_ast *node, t_data *data)

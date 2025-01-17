@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:27:48 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 12:44:08 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:10:27 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_data	data;
+	int		exit_status;
 
 	init_data(&data, envp);
 	check_argc_bonus(argc, argv, &data);
@@ -25,6 +26,6 @@ int	main(int argc, char *argv[], char *envp[])
 	print_ast(data.ast_root);
 	ft_printf("\n");
 	//
-	// exec_ast(&data);
-	exit_pipex(&data, EXIT_SUCCESS, NO_ERROR, NULL);
+	exit_status = exec_ast(data.ast_root, &data);
+	exit_pipex(&data, exit_status, NO_ERROR, NULL);
 }
