@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/16 19:32:44 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:48:15 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_err(int err_code, char *param)
 		return ;
 	else if (err_code == ERR_PARAM)
 		ft_dprintf(2, param);
-	else if (err_code == ERR_OPEN)
+	else if (err_code == ERR_OPEN || err_code == ERR_ACCESS)
 		ft_dprintf(2, "pipex: %s: %s\n", param, strerror(errno));
 	else if (err_code == ERR_READ)
 		ft_dprintf(2, "pipex: read: %s\n", strerror(errno));
@@ -30,6 +30,16 @@ void	print_err(int err_code, char *param)
 		ft_dprintf(2, "pipex: unlink: %s\n", strerror(errno));
 	else if (err_code == ERR_MALLOC)
 		ft_dprintf(2, "pipex: malloc: %s\n", strerror(errno));
+	else if (err_code == ERR_PIPE)
+		ft_dprintf(2, "pipex: pipe: %s\n", strerror(errno));
+	else if (err_code == ERR_FORK)
+		ft_dprintf(2, "pipex: fork: %s\n", strerror(errno));
+	else if (err_code == ERR_DUP2)
+		ft_dprintf(2, "pipex: dup2: %s\n", strerror(errno));
+	else if (err_code == ERR_EXECVE)
+		ft_dprintf(2, "pipex: execve: %s\n", strerror(errno));
+	else if (err_code == ERR_CMDNOTFOUND)
+		ft_dprintf(2, "pipex: %s: command not found\n", param);
 }
 
 void	set_exit_fail_and_print_err(int *exit_status, int err_code, char *param)

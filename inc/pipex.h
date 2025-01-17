@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/16 19:37:46 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:49:00 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@
 # define ERR_CLOSE 5
 # define ERR_UNLINK 6
 # define ERR_MALLOC 7
+# define ERR_PIPE 8
+# define ERR_FORK 9
+# define ERR_DUP2 10
+# define ERR_CMDNOTFOUND 11
+# define ERR_ACCESS 12
+# define ERR_EXECVE 13
 
 # define RAND_SUCCESS 0
 # define RAND_ERR_OPEN -1
