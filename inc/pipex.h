@@ -51,6 +51,7 @@
 
 typedef struct s_data
 {
+	char			**envp;
 	struct s_env	*env_list;
 	int				in_fd;
 	int				out_fd;
@@ -125,7 +126,7 @@ bool	here_doc_error(t_data *data, int gnl_return_code, t_heredoc *hd_data);
 bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data);
 void	proc_here_doc(char *argv[], t_data *data);
 // init_data.c
-void	init_data(t_data *data);
+void	init_data(t_data *data, char *envp[]);
 // parse_ast_utils.c
 void	print_ast(t_ast *node);
 void	free_command_argv(char **argv);
