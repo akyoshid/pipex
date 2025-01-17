@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 17:07:07 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:43:16 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,18 @@ void	print_env_list(t_data *data);
 // exec_ast_utils.c
 int		get_exit_status(int status);
 // exec_ast.c
-char	*find_command(char *cmd, t_data *data);
 int		exec_ast(t_ast *node, t_data *data);
 // exec_command.c
+char	*find_command(char *cmd, t_data *data);
+int		set_path(char *cmd, t_data *data, char **path_p);
+int		exec_command_fork_err(char *path);
+void	exec_command_execve_err(void);
 int		exec_command(t_ast *node, t_data *data);
 // exec_pipe.c
+int		exec_pipe_left_fork_err(int fd[]);
+int		exec_pipe_right_fork_err(int fd[], pid_t pid_left, int *status_left_p);
+void	exec_pipe_left(t_ast *node, t_data *data, int fd[]);
+void	exec_pipe_right(t_ast *node, t_data *data, int fd[]);
 int		exec_pipe(t_ast *node, t_data *data);
 
 
