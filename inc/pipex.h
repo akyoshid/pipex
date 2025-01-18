@@ -26,6 +26,12 @@
 # include "../libft/inc/ft_printf.h"
 # include "../libft/inc/get_next_line_bonus.h"
 
+# define PIPEX_SUCCESS 0
+# define PIPEX_GENERAL_ERROR 1
+# define PIPEX_SYNTAX_ERROR 2
+# define PIPEX_CANNOT_EXEC 126
+# define PIPEX_CMD_NOT_FOUND 127
+
 # define STATUS_INITIAL 0
 # define STATUS_MALLOC_ENVS 1
 # define STATUS_OPEN_INFILE 2
@@ -177,5 +183,6 @@ void	parse_files(int argc, char *argv[], t_data *data);
 void	free_2d_array(char **ptr);
 // xmalloc.c
 void	abort_memory_err(char *func_name);
+void	*xmalloc(size_t bytes);
 
 #endif
