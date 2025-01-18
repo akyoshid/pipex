@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:07:49 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 18:38:41 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:26:17 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ t_ast	*create_node(t_node_type type)
 	tmp->left = NULL;
 	tmp->right = NULL;
 	tmp->argv = NULL;
+	tmp->redir_in = false;
+	tmp->redir_out = false;
 	return (tmp);
 }
 
-t_ast	*parse_command(char *arg)
+t_ast	*parse_command(char *arg, int i, int argc, t_data *data)
 {
 	t_ast	*tmp;
 
@@ -32,8 +34,11 @@ t_ast	*parse_command(char *arg)
 	tmp->argv = ft_split_mult_c(arg, " \n\t");
 	if (tmp->argv == NULL)
 		abort_memory_err("ft_split_mult_c");
-	tmp->left = NULL;
-	tmp->right = NULL;
+	if ((data->has_here_doc == false && i == 2)
+		|| (data->has_here_doc == true && i == 3))
+		tmp->redir_in = data->in_fd;
+	if (i == argc - 2)
+		tmp->redir_out = data->out_fd;
 	return (tmp);
 }
 
@@ -58,11 +63,11 @@ t_ast	*parse_ast(int argc, char *argv[], t_data *data)
 		i = 3;
 	if (i < argc - 1)
 	{
-		left = parse_command(argv[i]);
+		left = parse_command(argv[i], i, argc, data);
 		i++;
 		while (i < argc - 1)
 		{
-			right = parse_command(argv[i]);
+			right = parse_command(argv[i], i, argc, data);
 			left = create_pipe(left, right);
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:07:36 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/16 19:35:47 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:58:40 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	print_ast(t_ast *node)
 			ft_printf("%s ", node->argv[i]);
 			i++;
 		}
+		if (node->redir_in == true)
+			ft_printf("< ");
+		if (node->redir_out == true)
+			ft_printf("> ");
 	}
 }
 

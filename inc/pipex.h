@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 18:34:31 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:32:43 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct s_ast
 	struct s_ast	*left;
 	struct s_ast	*right;
 	char			**argv;
+	bool			redir_in;
+	bool			redir_out;
 }					t_ast;
 
 // check_argc.c
@@ -111,6 +113,7 @@ int		get_exit_status(int status);
 // exec_ast.c
 int		exec_ast(t_ast *node, t_data *data);
 // exec_command.c
+int		setup_redirect(t_ast *node, t_data *data);
 int		exec_command_fork_err(char *executable_path);
 void	exec_command_execve_err(void);
 int		exec_command(t_ast *node, t_data *data);
@@ -162,7 +165,7 @@ void	free_command_argv(char **argv);
 void	clear_ast(t_ast *node);
 // parse_ast.c
 t_ast	*create_node(t_node_type type);
-t_ast	*parse_command(char *arg);
+t_ast	*parse_command(char *arg, int i, int argc, t_data *data);
 t_ast	*create_pipe(t_ast *left, t_ast *right);
 t_ast	*parse_ast(int argc, char *argv[], t_data *data);
 // parse_envs.c
