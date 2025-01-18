@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:01:33 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 18:28:23 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 20:03:01 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	exec_ast(t_ast *node, t_data *data)
 {
 	int	exit_status;
 
+	exit_status = 0;
 	if (node == NULL)
 		return (PIPEX_SUCCESS);
 	if (node->type == NODE_COMMAND)
