@@ -33,7 +33,7 @@ void	parse_files(int argc, char *argv[], t_data *data)
 			exit_pipex(data, EXIT_FAILURE, ERR_OPEN, argv[1]);
 		data->status = STATUS_OPEN_INFILE;
 	}
-	data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT, 0666);
+	data->out_fd = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (data->out_fd == -1)
 		exit_pipex(data, EXIT_FAILURE, ERR_OPEN, argv[argc - 1]);
 	data->status = STATUS_OPEN_OUTFILE;
