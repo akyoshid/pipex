@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 19:32:43 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:41:04 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,10 +128,12 @@ char	*set_executable_path_dup_cmd(char *cmd);
 char	*set_executable_path_current_dir(char *cmd);
 char	**split_env_path(char *env_path);
 char	*join_slash_cmd(char *cmd);
-char	*set_executable_path_path_list_i(char **path_list, int i, char *slash_cmd);
+char	*set_executable_path_path_list_i(
+			char **path_list, int i, char *slash_cmd);
 // executable_path.c
 char	*set_executable_path(char *cmd, t_data *data);
-int		check_executable_path(char *cmd, t_data *data, char **executable_path_p);
+int		check_executable_path(
+			char *cmd, t_data *data, char **executable_path_p);
 // exit_pipex.c
 void	print_err(int err_code, char *param);
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);

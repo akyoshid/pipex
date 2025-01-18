@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:07:49 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 19:26:17 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 19:39:48 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_ast	*create_pipe(t_ast *left, t_ast *right)
 
 t_ast	*parse_ast(int argc, char *argv[], t_data *data)
 {
-	int	i;
+	int		i;
 	t_ast	*left;
 	t_ast	*right;
 
