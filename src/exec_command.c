@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:04:59 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 19:32:33 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:17:03 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	exec_command(t_ast *node, t_data *data)
 		execve(executable_path, node->argv, data->envp);
 		exec_command_execve_err();
 	}
-	waitpid(pid, &status, 0);
+	if (waitpid(pid, &status, 0) == -1)
+		proc_err_waitpid(&status);
 	free(executable_path);
 	return (get_exit_status(status));
 }

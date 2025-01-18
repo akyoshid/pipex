@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 18:31:46 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:13:24 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	print_err(int err_code, char *param)
 		ft_dprintf(2, "pipex: execve: %s\n", strerror(errno));
 	else if (err_code == ERR_CMDNOTFOUND)
 		ft_dprintf(2, "pipex: %s: command not found\n", param);
+	else if (err_code == ERR_WAITPID)
+		ft_dprintf(2, "pipex: waitpid: %s\n", strerror(errno));
 }
 
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param)

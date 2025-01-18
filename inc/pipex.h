@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 19:41:04 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:14:35 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define ERR_CMDNOTFOUND 8
 # define ERR_ACCESS 9
 # define ERR_EXECVE 10
+# define ERR_WAITPID 11
 
 # define RAND_SUCCESS 0
 # define RAND_ERR_OPEN -1
@@ -109,6 +110,7 @@ char	*search_var_value(t_data *data, char *str);
 void	clear_env_list(t_data *data);
 void	print_env_list(t_data *data);
 // exec_ast_utils.c
+void	proc_err_waitpid(int *status);
 int		get_exit_status(int status);
 // exec_ast.c
 int		exec_ast(t_ast *node, t_data *data);

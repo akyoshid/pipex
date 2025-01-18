@@ -6,11 +6,17 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 16:59:09 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 16:59:30 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:14:16 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+void	proc_err_waitpid(int *status)
+{
+	print_err(ERR_WAITPID, NULL);
+	*status = PIPEX_GENERAL_ERROR;
+}
 
 int	get_exit_status(int status)
 {

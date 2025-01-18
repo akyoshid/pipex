@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:04:07 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 18:29:36 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 21:15:30 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	exec_pipe_right_fork_err(int fd[], pid_t pid_left, int *status_left_p)
 	print_err(ERR_FORK, NULL);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid_left, status_left_p, 0);
+	if (waitpid(pid_left, status_left_p, 0) == -1)
+		proc_err_waitpid(status_left_p);
 	return (PIPEX_GENERAL_ERROR);
 }
 
@@ -77,7 +78,9 @@ int	exec_pipe(t_ast *node, t_data *data)
 		exec_pipe_right(node, data, fd);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(pid_left, &status_left, 0);
-	waitpid(pid_right, &status_right, 0);
+	if (waitpid(pid_left, &status_left, 0) == -1)
+		proc_err_waitpid(&status_left);
+	if (waitpid(pid_right, &status_right, 0) == -1)
+		proc_err_waitpid(&status_right);
 	return (get_exit_status(status_right));
 }
