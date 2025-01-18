@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:03:36 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/13 16:26:39 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:15:55 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	parse_limiter(t_data *data, char *limiter, t_heredoc *hd_data)
 	if (hd_data->in_quotation == true)
 	{
 		if (hd_data->single_quote == true)
-			exit_pipex(data, EXIT_FAILURE, ERR_PARAM,
+			exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
 				"pipex: syntax error: unclosed single quote\n");
 		else
-			exit_pipex(data, EXIT_FAILURE, ERR_PARAM,
+			exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
 				"pipex: syntax error: unclosed double quote\n");
 	}
 	hd_data->limiter = limiter;

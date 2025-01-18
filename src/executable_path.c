@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:54:42 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 13:58:02 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:13:17 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ int	check_executable_path(char *cmd, t_data *data, char **executable_path_p)
 	if (cmd == NULL)
 	{
 		print_err(ERR_PARAM, "pipex: command '' not found\n");
-		return (127);
+		return (PIPEX_CMD_NOT_FOUND);
 	}
 	*executable_path_p = set_executable_path(cmd, data);
 	if (*executable_path_p == NULL)
 	{
 		print_err(ERR_CMDNOTFOUND, cmd);
-		return (127);
+		return (PIPEX_CMD_NOT_FOUND);
 	}
 	if (access(*executable_path_p, X_OK) == -1)
 	{
 		print_err(ERR_ACCESS, cmd);
 		free(*executable_path_p);
-		return (126);
+		return (PIPEX_CANNOT_EXEC);
 	}
 	return (0);
 }

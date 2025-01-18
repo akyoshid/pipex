@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:44 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/13 16:20:49 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:36:01 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
 		if (write(data->in_fd, new_line, ft_strlen(new_line)) == -1)
 		{
 			free(new_line);
-			exit_pipex(data, EXIT_FAILURE, ERR_WRITE, NULL);
+			exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_WRITE, NULL);
 		}
 		free(new_line);
 		return (true);
@@ -55,14 +55,14 @@ void	proc_here_doc(char *argv[], t_data *data)
 	set_here_doc_path(data);
 	data->in_fd = open(data->here_doc_path, O_CREAT | O_EXCL | O_WRONLY, 0666);
 	if (data->in_fd == -1)
-		exit_pipex(data, EXIT_FAILURE, ERR_OPEN, data->here_doc_path);
+		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_OPEN, data->here_doc_path);
 	data->status = STATUS_OPEN_INFILE;
 	parse_limiter(data, argv[2], &hd_data);
 	loop_flag = true;
 	while (loop_flag)
 	{
 		if (ft_dprintf(1, "> ") == -1)
-			exit_pipex(data, EXIT_FAILURE, ERR_WRITE, NULL);
+			exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_WRITE, NULL);
 		new_line = get_next_line(STDIN_FILENO, &gnl_return_code);
 		if (new_line == NULL)
 			loop_flag = here_doc_error(data, gnl_return_code, &hd_data);
@@ -70,5 +70,4 @@ void	proc_here_doc(char *argv[], t_data *data)
 			loop_flag = here_doc_success(data, new_line, &hd_data);
 	}
 	close_and_open_here_doc_file(data);
-	print_here_doc(data);
 }

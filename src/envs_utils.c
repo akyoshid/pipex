@@ -6,11 +6,27 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 08:57:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/10 08:57:53 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:23:29 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+// Find a `key` in `data->env_list` that matches `str` and return its `value`.
+// `str` must be null-terminated.
+char	*search_var_value(t_data *data, char *str)
+{
+	t_env	*current_node;
+
+	current_node = data->env_list;
+	while (current_node != NULL)
+	{
+		if (ft_strcmp(current_node->key, str) == 0)
+			return (current_node->value);
+		current_node = current_node->next;
+	}
+	return (NULL);
+}
 
 void	clear_env_list(t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:04:59 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 13:56:19 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:14:00 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	exec_command_fork_err(char *executable_path)
 {
 	print_err(ERR_FORK, NULL);
 	free(executable_path);
-	return (1);
+	return (PIPEX_GENERAL_ERROR);
 }
 
 void	exec_command_execve_err(void)
 {
 	print_err(ERR_EXECVE, NULL);
-	exit(126);
+	exit(PIPEX_CANNOT_EXEC);
 }
 
 int	exec_command(t_ast *node, t_data *data)

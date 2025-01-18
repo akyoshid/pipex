@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:16:02 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/14 17:18:20 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 17:25:35 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,6 @@ int	calc_var_key_len(char *str)
 	return (i);
 }
 
-// Find a `key` in `data->env_list` that matches `str` and return its `value`.
-// `str` must be null-terminated.
-char	*search_var_value(t_data *data, char *str)
-{
-	t_env	*current_node;
-
-	current_node = data->env_list;
-	while (current_node != NULL)
-	{
-		if (ft_strcmp(current_node->key, str) == 0)
-			return (current_node->value);
-		current_node = current_node->next;
-	}
-	return (NULL);
-}
-
 char	*replace_by_var_value(
 	char *src, int *i, int var_key_len, char *var_value)
 {
@@ -62,10 +46,8 @@ char	*replace_by_var_value(
 	else
 	{
 		var_value_len = ft_strlen(var_value);
-		new = (char *)malloc(
+		new = (char *)xmalloc(
 				sizeof(char) * (src_len + 1 - var_key_len + var_value_len));
-		if (new == NULL)
-			return (free(src), NULL);
 		ft_strncpy(new, src, *i);
 		ft_strncpy(new + *i, var_value, var_value_len);
 		ft_strlcpy(new + *i + var_value_len,
@@ -94,8 +76,6 @@ char	*here_doc_expand_var(t_data *data, char *src)
 			var_value = search_var_value(data, src + i + 1);
 			src[i + var_key_len] = temp;
 			src = replace_by_var_value(src, &i, var_key_len, var_value);
-			if (src == NULL)
-				exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
 		}
 		else
 			i++;

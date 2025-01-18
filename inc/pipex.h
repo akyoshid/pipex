@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 14:07:45 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:34:31 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define PIPEX_CMD_NOT_FOUND 127
 
 # define STATUS_INITIAL 0
-# define STATUS_MALLOC_ENVS 1
+# define STATUS_PARSE_ENVS 1
 # define STATUS_OPEN_INFILE 2
 # define STATUS_OPEN_OUTFILE 3
 # define STATUS_PARSE_AST 4
@@ -44,22 +44,18 @@
 # define ERR_OPEN 2
 # define ERR_READ 3
 # define ERR_WRITE 4
-# define ERR_CLOSE 5
-# define ERR_UNLINK 6
-# define ERR_MALLOC 7
-# define ERR_PIPE 8
-# define ERR_FORK 9
-# define ERR_DUP2 10
-# define ERR_CMDNOTFOUND 11
-# define ERR_ACCESS 12
-# define ERR_EXECVE 13
+# define ERR_PIPE 5
+# define ERR_FORK 6
+# define ERR_DUP2 7
+# define ERR_CMDNOTFOUND 8
+# define ERR_ACCESS 9
+# define ERR_EXECVE 10
 
 # define RAND_SUCCESS 0
 # define RAND_ERR_OPEN -1
 # define RAND_ERR_READ_FAIL -2
 # define RAND_ERR_READ_LACK -3
-# define RAND_ERR_CLOSE -4
-# define RAND_ERR_INVALID_LEN -5
+# define RAND_ERR_INVALID_LEN -4
 
 typedef struct s_data
 {
@@ -107,6 +103,7 @@ typedef struct s_ast
 void	check_argc_bonus(int argc, char *argv[], t_data *data);
 void	check_argc(int argc, t_data *data);
 // envs_utils.c
+char	*search_var_value(t_data *data, char *str);
 void	clear_env_list(t_data *data);
 void	print_env_list(t_data *data);
 // exec_ast_utils.c
@@ -134,8 +131,6 @@ char	*set_executable_path(char *cmd, t_data *data);
 int		check_executable_path(char *cmd, t_data *data, char **executable_path_p);
 // exit_pipex.c
 void	print_err(int err_code, char *param);
-void	set_exit_fail_and_print_err(
-			int *exit_status, int err_code, char *param);
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);
 // here_doc_limiter.c
 int		cmp_limiter(char *limiter, char *new_line);
@@ -147,7 +142,6 @@ int		ft_rand_bytes(char *dst, int len);
 void	set_here_doc_path(t_data *data);
 // here_doc_var.c
 int		calc_var_key_len(char *str);
-char	*search_var_value(t_data *data, char *str);
 char	*replace_by_var_value(
 			char *src, int *i, int var_key_len, char *var_value);
 char	*here_doc_expand_var(t_data *data, char *src);
@@ -169,8 +163,7 @@ void	clear_ast(t_ast *node);
 // parse_ast.c
 t_ast	*create_node(t_node_type type);
 t_ast	*parse_command(char *arg);
-t_ast	*wrapped_parse_command(char *arg, t_data *data, t_ast *root);
-t_ast	*create_pipe(t_data *data, t_ast *left, t_ast *right);
+t_ast	*create_pipe(t_ast *left, t_ast *right);
 t_ast	*parse_ast(int argc, char *argv[], t_data *data);
 // parse_envs.c
 t_env	*malloc_env(void);

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:04:07 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 18:37:18 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:29:36 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	exec_pipe_left_fork_err(int fd[])
 	print_err(ERR_FORK, NULL);
 	close(fd[0]);
 	close(fd[1]);
-	return (1);
+	return (PIPEX_GENERAL_ERROR);
 }
 
 int	exec_pipe_right_fork_err(int fd[], pid_t pid_left, int *status_left_p)
@@ -26,7 +26,7 @@ int	exec_pipe_right_fork_err(int fd[], pid_t pid_left, int *status_left_p)
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid_left, status_left_p, 0);
-	return (1);
+	return (PIPEX_GENERAL_ERROR);
 }
 
 void	exec_pipe_left(t_ast *node, t_data *data, int fd[])
@@ -36,7 +36,7 @@ void	exec_pipe_left(t_ast *node, t_data *data, int fd[])
 	{
 		print_err(ERR_DUP2, NULL);
 		close(fd[1]);
-		exit(1);
+		exit(PIPEX_GENERAL_ERROR);
 	}
 	close(fd[1]);
 	exit(exec_ast(node->left, data));
@@ -49,7 +49,7 @@ void	exec_pipe_right(t_ast *node, t_data *data, int fd[])
 	{
 		print_err(ERR_DUP2, NULL);
 		close(fd[0]);
-		exit(1);
+		exit(PIPEX_GENERAL_ERROR);
 	}
 	close(fd[0]);
 	exit(exec_ast(node->right, data));
@@ -64,7 +64,7 @@ int	exec_pipe(t_ast *node, t_data *data)
 	int		status_right;
 
 	if (pipe(fd) == -1)
-		return (print_err(ERR_PIPE, NULL), 1);
+		return (print_err(ERR_PIPE, NULL), PIPEX_GENERAL_ERROR);
 	pid_left = fork();
 	if (pid_left == -1)
 		return (exec_pipe_left_fork_err(fd));

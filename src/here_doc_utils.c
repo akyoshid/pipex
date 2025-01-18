@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:22 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/13 16:21:04 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:37:33 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	here_doc_delete_tab(char *new_line)
 void	proc_gnl_err(t_data *data, int return_code)
 {
 	if (return_code == GNL_FAILURE_MALLOC)
-		exit_pipex(data, EXIT_FAILURE, ERR_MALLOC, NULL);
+		abort_memory_err("get_next_line");
 	else if (return_code == GNL_FAILURE_READ)
-		exit_pipex(data, EXIT_FAILURE, ERR_READ, NULL);
+		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_READ, NULL);
 	else
 	{
 		if (return_code == GNL_FAILURE_BUFFER_SIZE)
@@ -37,31 +37,20 @@ void	proc_gnl_err(t_data *data, int return_code)
 		else if (return_code == GNL_FAILURE_FD)
 			ft_dprintf(STDERR_FILENO,
 				"pipex: get_next_line: Invalid fd\n");
-		exit_pipex(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
+		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_NOT_PRINT, NULL);
 	}
 }
 
 void	close_and_open_here_doc_file(t_data *data)
 {
-	if (close(data->in_fd) == -1)
+	close(data->in_fd);
+	data->in_fd = open(data->here_doc_path, O_RDONLY);
+	if (data->in_fd == -1)
 	{
-		print_err(ERR_CLOSE, NULL);
-		if (unlink(data->here_doc_path) == -1)
-			print_err(ERR_UNLINK, NULL);
+		print_err(ERR_OPEN, data->here_doc_path);
+		unlink(data->here_doc_path);
 		data->status--;
-		exit_pipex(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
-	}
-	else
-	{
-		data->in_fd = open(data->here_doc_path, O_RDONLY);
-		if (data->in_fd == -1)
-		{
-			print_err(ERR_OPEN, data->here_doc_path);
-			if (unlink(data->here_doc_path) == -1)
-				print_err(ERR_UNLINK, NULL);
-			data->status--;
-			exit_pipex(data, EXIT_FAILURE, ERR_NOT_PRINT, NULL);
-		}
+		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_NOT_PRINT, NULL);
 	}
 }
 

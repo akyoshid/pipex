@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 16:48:15 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:31:46 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ void	print_err(int err_code, char *param)
 		ft_dprintf(2, "pipex: read: %s\n", strerror(errno));
 	else if (err_code == ERR_WRITE)
 		ft_dprintf(2, "pipex: write: %s\n", strerror(errno));
-	else if (err_code == ERR_CLOSE)
-		ft_dprintf(2, "pipex: close: %s\n", strerror(errno));
-	else if (err_code == ERR_UNLINK)
-		ft_dprintf(2, "pipex: unlink: %s\n", strerror(errno));
-	else if (err_code == ERR_MALLOC)
-		ft_dprintf(2, "pipex: malloc: %s\n", strerror(errno));
 	else if (err_code == ERR_PIPE)
 		ft_dprintf(2, "pipex: pipe: %s\n", strerror(errno));
 	else if (err_code == ERR_FORK)
@@ -42,27 +36,20 @@ void	print_err(int err_code, char *param)
 		ft_dprintf(2, "pipex: %s: command not found\n", param);
 }
 
-void	set_exit_fail_and_print_err(int *exit_status, int err_code, char *param)
-{
-	*exit_status = EXIT_FAILURE;
-	print_err(err_code, param);
-}
-
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param)
 {
 	print_err(err_code, param);
 	if (data->status >= STATUS_PARSE_AST)
 		clear_ast(data->ast_root);
-	if (data->status >= STATUS_OPEN_OUTFILE && close(data->out_fd) == -1)
-		set_exit_fail_and_print_err(&exit_status, ERR_CLOSE, NULL);
+	if (data->status >= STATUS_OPEN_OUTFILE)
+		close(data->out_fd);
 	if (data->status >= STATUS_OPEN_INFILE)
 	{
-		if (close(data->in_fd) == -1)
-			set_exit_fail_and_print_err(&exit_status, ERR_CLOSE, NULL);
-		if (data->has_here_doc == true && unlink(data->here_doc_path) == -1)
-			set_exit_fail_and_print_err(&exit_status, ERR_UNLINK, NULL);
+		close(data->in_fd);
+		if (data->has_here_doc == true)
+			unlink(data->here_doc_path);
 	}
-	if (data->status >= STATUS_MALLOC_ENVS)
+	if (data->status >= STATUS_PARSE_ENVS)
 		clear_env_list(data);
 	exit(exit_status);
 }
