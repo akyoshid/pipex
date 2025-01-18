@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/17 18:43:16 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:07:45 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,12 @@ void	check_argc(int argc, t_data *data);
 // envs_utils.c
 void	clear_env_list(t_data *data);
 void	print_env_list(t_data *data);
-
-
 // exec_ast_utils.c
 int		get_exit_status(int status);
 // exec_ast.c
 int		exec_ast(t_ast *node, t_data *data);
 // exec_command.c
-char	*find_command(char *cmd, t_data *data);
-int		set_path(char *cmd, t_data *data, char **path_p);
-int		exec_command_fork_err(char *path);
+int		exec_command_fork_err(char *executable_path);
 void	exec_command_execve_err(void);
 int		exec_command(t_ast *node, t_data *data);
 // exec_pipe.c
@@ -121,8 +117,15 @@ int		exec_pipe_right_fork_err(int fd[], pid_t pid_left, int *status_left_p);
 void	exec_pipe_left(t_ast *node, t_data *data, int fd[]);
 void	exec_pipe_right(t_ast *node, t_data *data, int fd[]);
 int		exec_pipe(t_ast *node, t_data *data);
-
-
+// executable_path_utils.c
+char	*set_executable_path_dup_cmd(char *cmd);
+char	*set_executable_path_current_dir(char *cmd);
+char	**split_env_path(char *env_path);
+char	*join_slash_cmd(char *cmd);
+char	*set_executable_path_path_list_i(char **path_list, int i, char *slash_cmd);
+// executable_path.c
+char	*set_executable_path(char *cmd, t_data *data);
+int		check_executable_path(char *cmd, t_data *data, char **executable_path_p);
 // exit_pipex.c
 void	print_err(int err_code, char *param);
 void	set_exit_fail_and_print_err(
@@ -170,5 +173,9 @@ void	parse_envs(char *envp[], t_data *data);
 // parse_files.c
 void	parse_files_bonus(int argc, char *argv[], t_data *data);
 void	parse_files(int argc, char *argv[], t_data *data);
+// utils.c
+void	free_2d_array(char **ptr);
+// xmalloc.c
+void	abort_memory_err(char *func_name);
 
 #endif
