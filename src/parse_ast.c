@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:07:49 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 19:39:48 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:46:02 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,39 @@ t_ast	*create_node(t_node_type type)
 	tmp->left = NULL;
 	tmp->right = NULL;
 	tmp->argv = NULL;
-	tmp->redir_in = false;
-	tmp->redir_out = false;
+	tmp->redir_in_flag = false;
+	tmp->redir_out_flag = false;
+	tmp->here_doc_flag = false;
+	tmp->redir_in_path = NULL;
+	tmp->redir_out_path = NULL;
+	tmp->here_doc_word = NULL;
+	ft_bzero((void *)tmp->here_doc_path, 23);
 	return (tmp);
 }
 
-t_ast	*parse_command(char *arg, int i, int argc, t_data *data)
+t_ast	*parse_command(int argc, char *argv[], t_data *data, int i)
 {
 	t_ast	*tmp;
 
 	tmp = create_node(NODE_COMMAND);
-	tmp->argv = ft_split_mult_c(arg, " \n\t");
+	tmp->argv = ft_split_mult_c(argv[i], " \n\t");
 	if (tmp->argv == NULL)
 		abort_memory_err("ft_split_mult_c");
-	if ((data->has_here_doc == false && i == 2)
-		|| (data->has_here_doc == true && i == 3))
-		tmp->redir_in = data->in_fd;
+	if (data->has_here_doc == false && i == 2)
+	{
+		tmp->redir_in_flag = true;
+		tmp->redir_in_path = argv[1];
+	}
+	else if (data->has_here_doc == true && i == 3)
+	{
+		tmp->here_doc_flag = true;
+		tmp->here_doc_word = argv[2];
+	}
 	if (i == argc - 2)
-		tmp->redir_out = data->out_fd;
+	{
+		tmp->redir_out_flag = true;
+		tmp->redir_out_path = argv[argc - 1];
+	}
 	return (tmp);
 }
 
@@ -63,20 +78,16 @@ t_ast	*parse_ast(int argc, char *argv[], t_data *data)
 		i = 3;
 	if (i < argc - 1)
 	{
-		left = parse_command(argv[i], i, argc, data);
+		left = parse_command(argc, argv, data, i);
 		i++;
 		while (i < argc - 1)
 		{
-			right = parse_command(argv[i], i, argc, data);
+			right = parse_command(argc, argv, data, i);
 			left = create_pipe(left, right);
 			i++;
 		}
-		data->status = STATUS_PARSE_AST;
 		return (left);
 	}
 	else
-	{
-		data->status = STATUS_PARSE_AST;
 		return (NULL);
-	}
 }

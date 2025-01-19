@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:22 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 18:37:33 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:37:13 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,34 @@ void	here_doc_delete_tab(char *new_line)
 		ft_strlcpy(new_line, new_line + count, ft_strlen(new_line) + 1);
 }
 
-void	proc_gnl_err(t_data *data, int return_code)
+int	proc_gnl_err(int return_code)
 {
 	if (return_code == GNL_FAILURE_MALLOC)
 		abort_memory_err("get_next_line");
-	else if (return_code == GNL_FAILURE_READ)
-		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_READ, NULL);
 	else
 	{
-		if (return_code == GNL_FAILURE_BUFFER_SIZE)
-			ft_dprintf(STDERR_FILENO,
+		if (return_code == GNL_FAILURE_READ)
+			print_err(ERR_READ, NULL);
+		else if (return_code == GNL_FAILURE_BUFFER_SIZE)
+			print_err(ERR_PARAM,
 				"pipex: get_next_line: Invalid BUFFER_SIZE\n");
 		else if (return_code == GNL_FAILURE_FD)
-			ft_dprintf(STDERR_FILENO,
+			print_err(ERR_PARAM,
 				"pipex: get_next_line: Invalid fd\n");
-		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_NOT_PRINT, NULL);
 	}
+	return (-1);
 }
 
-void	close_and_open_here_doc_file(t_data *data)
+void	print_here_doc(t_ast *node)
 {
-	close(data->in_fd);
-	data->in_fd = open(data->here_doc_path, O_RDONLY);
-	if (data->in_fd == -1)
-	{
-		print_err(ERR_OPEN, data->here_doc_path);
-		unlink(data->here_doc_path);
-		data->status--;
-		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_NOT_PRINT, NULL);
-	}
-}
-
-void	print_here_doc(t_data *data)
-{
+	int		fd;
 	char	*new_line;
 	int		gnl_return_code;
 
+	fd = open(node->here_doc_path, O_RDONLY);
 	while (1)
 	{
-		new_line = get_next_line(data->in_fd, &gnl_return_code);
+		new_line = get_next_line(fd, &gnl_return_code);
 		if (new_line == NULL && gnl_return_code == 0)
 			return ;
 		else if (new_line == NULL && gnl_return_code != 0)
@@ -72,5 +61,5 @@ void	print_here_doc(t_data *data)
 		ft_printf("%s", new_line);
 		free(new_line);
 	}
-	close_and_open_here_doc_file(data);
+	close (fd);
 }

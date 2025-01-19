@@ -6,32 +6,11 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:04:59 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 21:17:03 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:32:34 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
-
-int	setup_redirect(t_ast *node, t_data *data)
-{
-	if (node->redir_in == true)
-	{
-		if (dup2(data->in_fd, STDIN_FILENO) == -1)
-		{
-			print_err(ERR_DUP2, NULL);
-			return (PIPEX_GENERAL_ERROR);
-		}
-	}
-	if (node->redir_out == true)
-	{
-		if (dup2(data->out_fd, STDOUT_FILENO) == -1)
-		{
-			print_err(ERR_DUP2, NULL);
-			return (PIPEX_GENERAL_ERROR);
-		}
-	}
-	return (0);
-}
 
 int	exec_command_fork_err(char *executable_path)
 {

@@ -17,6 +17,7 @@ SRC = \
 					$(SRC_DIR)envs_utils.c \
 					$(SRC_DIR)exec_ast_utils.c \
 					$(SRC_DIR)exec_ast.c \
+					$(SRC_DIR)exec_command_setup_redir.c \
 					$(SRC_DIR)exec_command.c \
 					$(SRC_DIR)executable_path_utils.c \
 					$(SRC_DIR)executable_path.c \
@@ -31,7 +32,6 @@ SRC = \
 					$(SRC_DIR)parse_ast_utils.c \
 					$(SRC_DIR)parse_ast.c \
 					$(SRC_DIR)parse_envs.c \
-					$(SRC_DIR)parse_files.c \
 					$(SRC_DIR)utils.c \
 					$(SRC_DIR)xmalloc.c
 MANDATORY_MAIN =	$(SRC_DIR)pipex.c

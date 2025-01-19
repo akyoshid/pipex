@@ -6,68 +6,71 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:44 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 17:36:01 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:08:16 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-bool	here_doc_error(t_data *data, int gnl_return_code, t_heredoc *hd_data)
+int	here_doc_error(int gnl_return_code, t_heredoc *hd_data)
 {
 	if (gnl_return_code != GNL_SUCCESS_FIN)
-		proc_gnl_err(data, gnl_return_code);
+		return (proc_gnl_err(gnl_return_code));
 	else
+	{
 		ft_dprintf(2, "\npipex: warning: here-document delimited "
 			"by end-of-file (wanted `%s')\n", hd_data->limiter);
-	return (false);
+		return (0);
+	}
 }
 
-bool	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
+int	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
 {
 	if (hd_data->leading_hyphen == true)
 		here_doc_delete_tab(new_line);
 	if (cmp_limiter(hd_data->limiter, new_line) == 0)
 	{
 		free(new_line);
-		return (false);
+		return (0);
 	}
 	else
 	{
 		if (hd_data->quoted_limiter == false)
 			new_line = here_doc_expand_var(data, new_line);
-		if (write(data->in_fd, new_line, ft_strlen(new_line)) == -1)
+		if (write(hd_data->fd, new_line, ft_strlen(new_line)) == -1)
 		{
 			free(new_line);
-			exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_WRITE, NULL);
+			print_err(ERR_WRITE, NULL);
+			return (-1);
 		}
 		free(new_line);
-		return (true);
+		return (1);
 	}
 }
 
-void	proc_here_doc(char *argv[], t_data *data)
+int	proc_here_doc(t_ast *node, t_data *data)
 {
 	t_heredoc	hd_data;
-	bool		loop_flag;
+	int			loop_flag;
 	char		*new_line;
 	int			gnl_return_code;
 
-	set_here_doc_path(data);
-	data->in_fd = open(data->here_doc_path, O_CREAT | O_EXCL | O_WRONLY, 0666);
-	if (data->in_fd == -1)
-		exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_OPEN, data->here_doc_path);
-	data->status = STATUS_OPEN_INFILE;
-	parse_limiter(data, argv[2], &hd_data);
-	loop_flag = true;
-	while (loop_flag)
+	if (set_here_doc_path(node) == -1)
+		return (-1);
+	hd_data.fd = open(node->here_doc_path, O_CREAT | O_EXCL | O_WRONLY, 0666);
+	if (hd_data.fd == -1)
+		return (print_err(ERR_OPEN, node->here_doc_path), -1);
+	if (parse_limiter(node->here_doc_word, &hd_data) == -1)
+		return (close(hd_data.fd), -1);
+	loop_flag = 1;
+	while (loop_flag == 1)
 	{
-		if (ft_dprintf(1, "> ") == -1)
-			exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_WRITE, NULL);
+		ft_dprintf(2, "> ");
 		new_line = get_next_line(STDIN_FILENO, &gnl_return_code);
 		if (new_line == NULL)
-			loop_flag = here_doc_error(data, gnl_return_code, &hd_data);
+			loop_flag = here_doc_error(gnl_return_code, &hd_data);
 		else
 			loop_flag = here_doc_success(data, new_line, &hd_data);
 	}
-	close_and_open_here_doc_file(data);
+	return (close(hd_data.fd), loop_flag);
 }

@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 21:13:24 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:48:27 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_err(int err_code, char *param)
 {
-	if (err_code == NO_ERROR || err_code == ERR_NOT_PRINT)
+	if (err_code == NO_ERROR)
 		return ;
 	else if (err_code == ERR_PARAM)
 		ft_dprintf(2, param);
@@ -41,17 +41,7 @@ void	print_err(int err_code, char *param)
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param)
 {
 	print_err(err_code, param);
-	if (data->status >= STATUS_PARSE_AST)
-		clear_ast(data->ast_root);
-	if (data->status >= STATUS_OPEN_OUTFILE)
-		close(data->out_fd);
-	if (data->status >= STATUS_OPEN_INFILE)
-	{
-		close(data->in_fd);
-		if (data->has_here_doc == true)
-			unlink(data->here_doc_path);
-	}
-	if (data->status >= STATUS_PARSE_ENVS)
-		clear_env_list(data);
+	clear_ast(data->ast_root);
+	clear_env_list(data);
 	exit(exit_status);
 }

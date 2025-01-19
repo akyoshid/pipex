@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 08:55:54 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 17:00:31 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 17:42:18 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	parse_envs(char *envp[], t_data *data)
 	char	*equal_p;
 	t_env	*new_node;
 
-	data->status = STATUS_PARSE_ENVS;
 	i = 0;
 	while (envp[i] != NULL)
 	{

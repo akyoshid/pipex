@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:03:36 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 17:15:55 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 09:52:34 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	parse_limiter_quotation(
 	}
 }
 
-void	parse_limiter(t_data *data, char *limiter, t_heredoc *hd_data)
+int	parse_limiter(char *limiter, t_heredoc *hd_data)
 {
 	hd_data->leading_hyphen = false;
 	if (limiter[0] == '-')
@@ -75,11 +75,13 @@ void	parse_limiter(t_data *data, char *limiter, t_heredoc *hd_data)
 	if (hd_data->in_quotation == true)
 	{
 		if (hd_data->single_quote == true)
-			exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
+			print_err(ERR_PARAM,
 				"pipex: syntax error: unclosed single quote\n");
 		else
-			exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
+			print_err(ERR_PARAM,
 				"pipex: syntax error: unclosed double quote\n");
+		return (-1);
 	}
 	hd_data->limiter = limiter;
+	return (0);
 }
