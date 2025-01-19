@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:54:42 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 20:21:28 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 21:32:46 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ char	*set_executable_path(char *cmd, t_data *data)
 
 int	check_executable_path(char *cmd, t_data *data, char **executable_path_p)
 {
+	char	*env_path;
+
+	env_path = search_var_value(data, "PATH");
 	if (cmd == NULL)
 	{
-		if (search_var_value(data, "PATH") != NULL)
+		if (env_path == NULL || *env_path == '\0')
 			print_err(ERR_PARAM, "pipex: : command not found\n");
 		else
 			print_err(ERR_PARAM, "pipex: : No such file or directory\n");
@@ -53,15 +56,15 @@ int	check_executable_path(char *cmd, t_data *data, char **executable_path_p)
 	}
 	*executable_path_p = set_executable_path(cmd, data);
 	if (*executable_path_p == NULL)
-	{
-		print_err(ERR_CMDNOTFOUND, cmd);
-		return (PIPEX_CMD_NOT_FOUND);
-	}
+		return (print_err(ERR_CMDNOTFOUND, cmd), PIPEX_CMD_NOT_FOUND);
 	if (access(*executable_path_p, X_OK) == -1)
 	{
-		print_err(ERR_ACCESS, cmd);
-		free(*executable_path_p);
-		return (PIPEX_CANNOT_EXEC);
+		if (env_path == NULL || *env_path == '\0')
+			return (print_err(ERR_CMDNOTFOUND, cmd), free(*executable_path_p),
+				PIPEX_CMD_NOT_FOUND);
+		else
+			return (print_err(ERR_ACCESS, cmd), free(*executable_path_p),
+				PIPEX_CANNOT_EXEC);
 	}
 	return (0);
 }
