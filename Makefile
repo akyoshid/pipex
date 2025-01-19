@@ -32,6 +32,7 @@ SRC = \
 					$(SRC_DIR)parse_ast_utils.c \
 					$(SRC_DIR)parse_ast.c \
 					$(SRC_DIR)parse_envs.c \
+					$(SRC_DIR)print_err.c \
 					$(SRC_DIR)utils.c \
 					$(SRC_DIR)xmalloc.c
 MANDATORY_MAIN =	$(SRC_DIR)pipex.c

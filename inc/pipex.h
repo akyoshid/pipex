@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 17:48:53 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:00:55 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ char	*set_executable_path(char *cmd, t_data *data);
 int		check_executable_path(
 			char *cmd, t_data *data, char **executable_path_p);
 // exit_pipex.c
-void	print_err(int err_code, char *param);
 void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);
 // here_doc_limiter.c
 int		cmp_limiter(char *limiter, char *new_line);
@@ -175,6 +174,8 @@ t_ast	*parse_ast(int argc, char *argv[], t_data *data);
 t_env	*malloc_env(void);
 void	add_back_env(t_data *data, t_env *new);
 void	parse_envs(char *envp[], t_data *data);
+// print_err.c
+void	print_err(int err_code, char *param);
 // utils.c
 void	free_2d_array(char **ptr);
 // xmalloc.c
