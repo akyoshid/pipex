@@ -6,11 +6,60 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:49:34 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 16:25:08 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:13:32 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+void	not_exec_any_cmds(char *infile_path, char *outfile_path, t_data *data)
+{
+	int	fd;
+
+	if (infile_path != NULL)
+	{
+		fd = open(infile_path, O_RDONLY);
+		if (fd == -1)
+			exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_OPEN, infile_path);
+		close (fd);
+	}
+	if (outfile_path != NULL)
+	{
+		fd = open(outfile_path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (fd == -1)
+			exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_OPEN, outfile_path);
+		close (fd);
+	}
+	exit(PIPEX_SUCCESS);
+}
+
+void	not_exec_any_cmds_here_doc(char *word, char *outfile_path, t_data *data)
+{
+	t_ast	*node;
+	int		fd;
+
+	node = create_node(NODE_COMMAND);
+	node->here_doc_flag = true;
+	node->here_doc_word = word;
+	if (proc_here_doc(node, data) == -1)
+	{
+		unlink(node->here_doc_path);
+		free(node);
+		exit_pipex(data, PIPEX_GENERAL_ERROR, NO_ERROR, NULL);
+	}
+	fd = open(node->here_doc_path, O_RDONLY);
+	if (fd == -1)
+	{
+		print_err(ERR_OPEN, node->here_doc_path);
+		unlink(node->here_doc_path);
+		free(node);
+		exit_pipex(data, PIPEX_GENERAL_ERROR, NO_ERROR, NULL);
+	}
+	close (fd);
+	unlink(node->here_doc_path);
+	free(node);
+	not_exec_any_cmds(NULL, outfile_path, data);
+}
 
 void	check_argc_bonus(int argc, char *argv[], t_data *data)
 {
@@ -22,14 +71,22 @@ void	check_argc_bonus(int argc, char *argv[], t_data *data)
 		if (argc == 2)
 			exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
 				"pipex: syntax error near unexpected token `newline'\n");
+		else if (argc == 3)
+			not_exec_any_cmds_here_doc(argv[2], NULL, data);
+		else if (argc == 4)
+			not_exec_any_cmds_here_doc(argv[2], argv[3], data);
 	}
 	else
 	{
 		if (argc == 2)
-			exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
-				"pipex: Invalid number of arguments\n"
-				"Usage: ./pipex_bonus infile cmd1 cmd2 cmd3 ... cmdn outfile\n");
+			not_exec_any_cmds(argv[1], NULL, data);
+		else if (argc == 3)
+			not_exec_any_cmds(argv[1], argv[2], data);
 	}
+	if ((data->has_here_doc == false && argc >= 3337)
+		|| (data->has_here_doc == true && argc >= 3338))
+		exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
+			"pipex: syntax error near unexpected token `|'\n");
 }
 
 void	check_argc(int argc, t_data *data)

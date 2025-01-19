@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 18:00:55 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/19 18:59:30 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ typedef struct s_ast
 }					t_ast;
 
 // check_argc.c
+void	not_exec_any_cmds(char *infile_path, char *outfile_path, t_data *data);
+void	not_exec_any_cmds_here_doc(
+			char *word, char *outfile_path, t_data *data);
 void	check_argc_bonus(int argc, char *argv[], t_data *data);
 void	check_argc(int argc, t_data *data);
 // envs_utils.c
