@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:41:14 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 13:03:47 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/01/21 06:31:07 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	set_here_doc_path(t_ast *node)
 	i = 0;
 	while (i < 10)
 	{
-		rand[i] = rand[i] % 36;
+		rand[i] = (unsigned char)rand[i] % 36;
 		if (rand[i] <= 9)
 			node->here_doc_path[i + 12] = rand[i] + '0';
 		else
