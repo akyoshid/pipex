@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_limiter.c                                 :+:      :+:    :+:   */
+/*   parse_limiter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:03:36 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 09:52:34 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:42:10 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-int	cmp_limiter(char *limiter, char *new_line)
-{
-	int		new_line_len;
-	bool	trim_flag;
-	int		return_value;
-
-	new_line_len = ft_strlen(new_line);
-	trim_flag = false;
-	if (new_line[new_line_len - 1] == '\n')
-	{
-		new_line[new_line_len - 1] = '\0';
-		trim_flag = true;
-	}
-	return_value = ft_strcmp(limiter, new_line);
-	if (trim_flag == true)
-		new_line[new_line_len - 1] = '\n';
-	return (return_value);
-}
-
-void	parse_limiter_quotation(
+static void	_parse_limiter_quotation(
 	char *limiter, t_heredoc *hd_data, int i, int len)
 {
 	i = 0;
@@ -71,7 +52,7 @@ int	parse_limiter(char *limiter, t_heredoc *hd_data)
 	hd_data->quoted_limiter = false;
 	hd_data->in_quotation = false;
 	hd_data->single_quote = false;
-	parse_limiter_quotation(limiter, hd_data, 0, ft_strlen(limiter));
+	_parse_limiter_quotation(limiter, hd_data, 0, ft_strlen(limiter));
 	if (hd_data->in_quotation == true)
 	{
 		if (hd_data->single_quote == true)

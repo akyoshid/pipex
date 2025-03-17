@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/03/17 06:08:31 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:42:52 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,91 +103,71 @@ typedef struct s_ast
 	char			here_doc_path[23];
 }					t_ast;
 
-// check_argc.c
-void	not_exec_any_cmds(char *infile_path, char *outfile_path, t_data *data);
-void	not_exec_any_cmds_here_doc(
-			char *word, char *outfile_path, t_data *data);
-void	check_argc_bonus(int argc, char *argv[], t_data *data);
-void	check_argc(int argc, t_data *data);
-// envs_utils.c
-char	*search_var_value(t_data *data, char *str);
-void	clear_env_list(t_data *data);
-void	print_env_list(t_data *data);
-// exec_ast_utils.c
+// exec/
+// exec/exec_ast_utils.c
 void	proc_err_waitpid(int *status);
 int		get_exit_status(int status);
-// exec_ast.c
+// exec/exec_ast.c
 int		exec_ast(t_ast *node, t_data *data);
-// exec_command_setup_redir.c
-int		set_up_here_doc(t_ast *node, t_data *data);
-int		setup_redir_in(t_ast *node);
-int		setup_redir_out(t_ast *node);
+// exec/exec_command_setup_redir.c
 int		setup_redirect(t_ast *node, t_data *data);
-// exec_command.c
-int		exec_command_fork_err(char *executable_path);
-void	exec_command_execve_err(void);
+// exec/exec_command.c
 int		exec_command(t_ast *node, t_data *data);
-// exec_pipe.c
-int		exec_pipe_left_fork_err(int fd[]);
-int		exec_pipe_right_fork_err(int fd[], pid_t pid_left, int *status_left_p);
-void	exec_pipe_left(t_ast *node, t_data *data, int fd[]);
-void	exec_pipe_right(t_ast *node, t_data *data, int fd[]);
+// exec/exec_pipe.c
 int		exec_pipe(t_ast *node, t_data *data);
-// executable_path_utils.c
+// exec/executable_path_utils.c
 char	*set_executable_path_dup_cmd(char *cmd);
 char	*set_executable_path_current_dir(char *cmd);
 char	**split_env_path(char *env_path);
 char	*join_slash_cmd(char *cmd);
 char	*set_executable_path_path_list_i(
 			char **path_list, int i, char *slash_cmd);
-// executable_path.c
+// exec/executable_path.c
 char	*set_executable_path(char *cmd, t_data *data);
 int		check_executable_path(
 			char *cmd, t_data *data, char **executable_path_p);
-// exit_pipex.c
-void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);
-// here_doc_limiter.c
+
+// here_doc/
+// here_doc/cmp_limiter.c
 int		cmp_limiter(char *limiter, char *new_line);
-void	parse_limiter_quotation(
-			char *limiter, t_heredoc *hd_data, int i, int len);
+// here_doc/expand_var_here_doc.c
+char	*expand_var_here_doc(t_data *data, char *src);
+// here_doc/parse_limiter.c
 int		parse_limiter(char *limiter, t_heredoc *hd_data);
-// here_doc_set_path.c
-int		ft_rand_bytes(char *dst, int len);
-int		proc_err_ft_rand_bytes(int return_value);
+// here_doc/set_here_doc_path.c
 int		set_here_doc_path(t_ast *node);
-// here_doc_var.c
-int		calc_var_key_len(char *str);
-char	*replace_by_var_value(
-			char *src, int *i, int var_key_len, char *var_value);
-char	*here_doc_expand_var(t_data *data, char *src);
-// here_doc_utils.c
+// here_doc/proc_here_doc.c
+int		proc_here_doc(t_ast *node, t_data *data);
+// here_doc/utils.c
 void	here_doc_delete_tab(char *new_line);
 int		proc_gnl_err(int return_code);
-void	print_here_doc(t_ast *node);
-// here_doc.c
-int		here_doc_error(int gnl_return_code, t_heredoc *hd_data);
-int		here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data);
-int		proc_here_doc(t_ast *node, t_data *data);
-// init_data.c
+
+// init/
+// init/check_argc.c
+void	check_argc_bonus(int argc, char *argv[], t_data *data);
+void	check_argc(int argc, t_data *data);
+// init/init_data.c
 void	init_data(t_data *data, char *envp[]);
-// parse_ast_utils.c
-void	print_ast(t_ast *node);
-void	free_command_argv(char **argv);
+// init/parse_ast_utils.c
 void	clear_ast(t_ast *node);
-// parse_ast.c
+// init/parse_ast.c
 t_ast	*create_node(t_node_type type);
-t_ast	*parse_command(int argc, char *argv[], t_data *data, int i);
-t_ast	*create_pipe(t_ast *left, t_ast *right);
 t_ast	*parse_ast(int argc, char *argv[], t_data *data);
-// parse_envs.c
-t_env	*malloc_env(void);
-void	add_back_env(t_data *data, t_env *new);
+// init/parse_envs.c
 void	parse_envs(char *envp[], t_data *data);
-// print_err.c
-void	print_err(int err_code, char *param);
-// utils.c
+
+// utils/
+// utils/envs_utils.c
+char	*search_var_value(t_data *data, char *str);
+void	clear_env_list(t_data *data);
+void	print_env_list(t_data *data);
+// utils/exit_pipex.c
+void	exit_pipex(t_data *data, int exit_status, int err_code, char *param);
+// utils/free_2d_array.c
 void	free_2d_array(char **ptr);
-// xmalloc.c
+// utils/print_err.c
+void	print_err(int err_code, char *param);
+// utils/xmalloc.c
 void	abort_memory_err(char *func_name);
 void	*xmalloc(size_t bytes);
 

@@ -6,11 +6,11 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 08:57:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 17:23:29 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:17:01 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
 // Find a `key` in `data->env_list` that matches `str` and return its `value`.
 // `str` must be null-terminated.

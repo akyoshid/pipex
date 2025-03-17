@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_utils.c                                   :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:22 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 17:37:13 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:02:59 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
 void	here_doc_delete_tab(char *new_line)
 {
@@ -39,27 +39,4 @@ int	proc_gnl_err(int return_code)
 				"pipex: get_next_line: Invalid fd\n");
 	}
 	return (-1);
-}
-
-void	print_here_doc(t_ast *node)
-{
-	int		fd;
-	char	*new_line;
-	int		gnl_return_code;
-
-	fd = open(node->here_doc_path, O_RDONLY);
-	while (1)
-	{
-		new_line = get_next_line(fd, &gnl_return_code);
-		if (new_line == NULL && gnl_return_code == 0)
-			return ;
-		else if (new_line == NULL && gnl_return_code != 0)
-		{
-			ft_printf("gnl error\n");
-			return ;
-		}
-		ft_printf("%s", new_line);
-		free(new_line);
-	}
-	close (fd);
 }

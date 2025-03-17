@@ -6,13 +6,13 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 08:55:54 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 17:42:18 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:39:45 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-t_env	*malloc_env(void)
+static t_env	*_malloc_env(void)
 {
 	t_env	*buff;
 
@@ -23,7 +23,7 @@ t_env	*malloc_env(void)
 	return (buff);
 }
 
-void	add_back_env(t_data *data, t_env *new)
+static void	_add_back_env(t_data *data, t_env *new)
 {
 	t_env	*current_node;
 
@@ -47,8 +47,8 @@ void	parse_envs(char *envp[], t_data *data)
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		new_node = malloc_env();
-		add_back_env(data, new_node);
+		new_node = _malloc_env();
+		_add_back_env(data, new_node);
 		equal_p = ft_strchr(envp[i], '=');
 		new_node->key = (char *)xmalloc(sizeof(char) * (equal_p - envp[i] + 1));
 		new_node->value = (char *)xmalloc(

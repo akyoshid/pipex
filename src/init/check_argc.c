@@ -6,13 +6,14 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:49:34 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 19:13:32 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:30:18 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-void	not_exec_any_cmds(char *infile_path, char *outfile_path, t_data *data)
+static void	_not_exec_any_cmds(
+	char *infile_path, char *outfile_path, t_data *data)
 {
 	int	fd;
 
@@ -33,7 +34,8 @@ void	not_exec_any_cmds(char *infile_path, char *outfile_path, t_data *data)
 	exit(PIPEX_SUCCESS);
 }
 
-void	not_exec_any_cmds_here_doc(char *word, char *outfile_path, t_data *data)
+static void	_not_exec_any_cmds_here_doc(
+	char *word, char *outfile_path, t_data *data)
 {
 	t_ast	*node;
 	int		fd;
@@ -58,7 +60,7 @@ void	not_exec_any_cmds_here_doc(char *word, char *outfile_path, t_data *data)
 	close (fd);
 	unlink(node->here_doc_path);
 	free(node);
-	not_exec_any_cmds(NULL, outfile_path, data);
+	_not_exec_any_cmds(NULL, outfile_path, data);
 }
 
 void	check_argc_bonus(int argc, char *argv[], t_data *data)
@@ -72,16 +74,16 @@ void	check_argc_bonus(int argc, char *argv[], t_data *data)
 			exit_pipex(data, PIPEX_SYNTAX_ERROR, ERR_PARAM,
 				"pipex: syntax error near unexpected token `newline'\n");
 		else if (argc == 3)
-			not_exec_any_cmds_here_doc(argv[2], NULL, data);
+			_not_exec_any_cmds_here_doc(argv[2], NULL, data);
 		else if (argc == 4)
-			not_exec_any_cmds_here_doc(argv[2], argv[3], data);
+			_not_exec_any_cmds_here_doc(argv[2], argv[3], data);
 	}
 	else
 	{
 		if (argc == 2)
-			not_exec_any_cmds(argv[1], NULL, data);
+			_not_exec_any_cmds(argv[1], NULL, data);
 		else if (argc == 3)
-			not_exec_any_cmds(argv[1], argv[2], data);
+			_not_exec_any_cmds(argv[1], argv[2], data);
 	}
 	if ((data->has_here_doc == false && argc >= 3337)
 		|| (data->has_here_doc == true && argc >= 3338))

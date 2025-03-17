@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_set_path.c                                :+:      :+:    :+:   */
+/*   set_here_doc_path.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 17:41:14 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/21 06:31:07 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:57:50 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-int	ft_rand_bytes(char *dst, int len)
+static int	_ft_rand_bytes(char *dst, int len)
 {
 	int	fd;
 	int	read_rv;
@@ -31,14 +31,14 @@ int	ft_rand_bytes(char *dst, int len)
 	return (RAND_SUCCESS);
 }
 
-int	proc_err_ft_rand_bytes(int return_value)
+static int	_proc_err_ft_rand_bytes(int return_value)
 {
 	if (return_value == RAND_ERR_OPEN)
 		print_err(ERR_OPEN, "/dev/urandom");
 	else if (return_value == RAND_ERR_READ_FAIL)
 		print_err(ERR_READ, NULL);
 	else if (return_value == RAND_ERR_READ_LACK)
-		print_err(ERR_PARAM, "pipex: ft_rand_bytes: "
+		print_err(ERR_PARAM, "pipex: _ft_rand_bytes: "
 			"Failed to read the specified number of bytes");
 	return (-1);
 }
@@ -50,9 +50,9 @@ int	set_here_doc_path(t_ast *node)
 	int		i;
 
 	ft_strlcpy(node->here_doc_path, "/tmp/sh-thd-", 23);
-	rand_rv = ft_rand_bytes(rand, 10);
+	rand_rv = _ft_rand_bytes(rand, 10);
 	if (rand_rv != RAND_SUCCESS)
-		return (proc_err_ft_rand_bytes(rand_rv));
+		return (_proc_err_ft_rand_bytes(rand_rv));
 	i = 0;
 	while (i < 10)
 	{

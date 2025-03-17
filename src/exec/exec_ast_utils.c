@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_pipex.c                                       :+:      :+:    :+:   */
+/*   exec_ast_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 15:50:24 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 17:59:59 by akyoshid         ###   ########.fr       */
+/*   Created: 2025/01/17 16:59:09 by akyoshid          #+#    #+#             */
+/*   Updated: 2025/03/17 12:25:21 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-void	exit_pipex(t_data *data, int exit_status, int err_code, char *param)
+void	proc_err_waitpid(int *status)
 {
-	print_err(err_code, param);
-	clear_ast(data->ast_root);
-	clear_env_list(data);
-	exit(exit_status);
+	print_err(ERR_WAITPID, NULL);
+	*status = PIPEX_GENERAL_ERROR;
+}
+
+int	get_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (WTERMSIG(status) + 128);
+	else
+		return (42);
 }

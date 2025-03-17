@@ -6,13 +6,13 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:31:53 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 17:33:39 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:34:59 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-int	set_up_here_doc(t_ast *node, t_data *data)
+static int	_set_up_here_doc(t_ast *node, t_data *data)
 {
 	int	fd;
 
@@ -40,7 +40,7 @@ int	set_up_here_doc(t_ast *node, t_data *data)
 	return (0);
 }
 
-int	setup_redir_in(t_ast *node)
+static int	_setup_redir_in(t_ast *node)
 {
 	int	fd;
 
@@ -60,7 +60,7 @@ int	setup_redir_in(t_ast *node)
 	return (0);
 }
 
-int	setup_redir_out(t_ast *node)
+static int	_setup_redir_out(t_ast *node)
 {
 	int	fd;
 
@@ -84,17 +84,17 @@ int	setup_redirect(t_ast *node, t_data *data)
 {
 	if (node->here_doc_flag == true)
 	{
-		if (set_up_here_doc(node, data) != 0)
+		if (_set_up_here_doc(node, data) != 0)
 			return (PIPEX_GENERAL_ERROR);
 	}
 	else if (node->redir_in_flag == true)
 	{
-		if (setup_redir_in(node) != 0)
+		if (_setup_redir_in(node) != 0)
 			return (PIPEX_GENERAL_ERROR);
 	}
 	if (node->redir_out_flag == true)
 	{
-		if (setup_redir_out(node) != 0)
+		if (_setup_redir_out(node) != 0)
 			return (PIPEX_GENERAL_ERROR);
 	}
 	return (0);

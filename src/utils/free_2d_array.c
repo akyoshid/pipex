@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_ast_utils.c                                   :+:      :+:    :+:   */
+/*   free_2d_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/17 16:59:09 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 21:14:16 by akyoshid         ###   ########.fr       */
+/*   Created: 2025/01/18 13:45:55 by akyoshid          #+#    #+#             */
+/*   Updated: 2025/03/17 11:42:23 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-void	proc_err_waitpid(int *status)
+void	free_2d_array(char **ptr)
 {
-	print_err(ERR_WAITPID, NULL);
-	*status = PIPEX_GENERAL_ERROR;
-}
+	int	i;
 
-int	get_exit_status(int status)
-{
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	else if (WIFSIGNALED(status))
-		return (WTERMSIG(status) + 128);
-	else
-		return (42);
+	i = 0;
+	if (ptr == NULL)
+		return ;
+	while (ptr[i] != NULL)
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
 }

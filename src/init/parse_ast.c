@@ -6,11 +6,11 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:07:49 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 17:46:02 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:44:28 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
 t_ast	*create_node(t_node_type type)
 {
@@ -31,7 +31,7 @@ t_ast	*create_node(t_node_type type)
 	return (tmp);
 }
 
-t_ast	*parse_command(int argc, char *argv[], t_data *data, int i)
+static t_ast	*_create_command(int argc, char *argv[], t_data *data, int i)
 {
 	t_ast	*tmp;
 
@@ -57,7 +57,7 @@ t_ast	*parse_command(int argc, char *argv[], t_data *data, int i)
 	return (tmp);
 }
 
-t_ast	*create_pipe(t_ast *left, t_ast *right)
+static t_ast	*_create_pipe(t_ast *left, t_ast *right)
 {
 	t_ast	*tmp;
 
@@ -78,12 +78,12 @@ t_ast	*parse_ast(int argc, char *argv[], t_data *data)
 		i = 3;
 	if (i < argc - 1)
 	{
-		left = parse_command(argc, argv, data, i);
+		left = _create_command(argc, argv, data, i);
 		i++;
 		while (i < argc - 1)
 		{
-			right = parse_command(argc, argv, data, i);
-			left = create_pipe(left, right);
+			right = _create_command(argc, argv, data, i);
+			left = _create_pipe(left, right);
 			i++;
 		}
 		return (left);

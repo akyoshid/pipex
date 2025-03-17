@@ -13,30 +13,31 @@ INC =				$(INC_DIR)pipex.h
 
 # Source files
 SRC = \
-					$(SRC_DIR)check_argc.c \
-					$(SRC_DIR)envs_utils.c \
-					$(SRC_DIR)exec_ast_utils.c \
-					$(SRC_DIR)exec_ast.c \
-					$(SRC_DIR)exec_command_setup_redir.c \
-					$(SRC_DIR)exec_command.c \
-					$(SRC_DIR)executable_path_utils.c \
-					$(SRC_DIR)executable_path.c \
-					$(SRC_DIR)exec_pipe.c \
-					$(SRC_DIR)exit_pipex.c \
-					$(SRC_DIR)here_doc_limiter.c \
-					$(SRC_DIR)here_doc_set_path.c \
-					$(SRC_DIR)here_doc_utils.c \
-					$(SRC_DIR)here_doc_var.c \
-					$(SRC_DIR)here_doc.c \
-					$(SRC_DIR)init_data.c \
-					$(SRC_DIR)parse_ast_utils.c \
-					$(SRC_DIR)parse_ast.c \
-					$(SRC_DIR)parse_envs.c \
-					$(SRC_DIR)print_err.c \
-					$(SRC_DIR)utils.c \
-					$(SRC_DIR)xmalloc.c
-MANDATORY_MAIN =	$(SRC_DIR)pipex.c
-BONUS_MAIN =		$(SRC_DIR)pipex_bonus.c
+					$(SRC_DIR)exec/exec_ast_utils.c \
+					$(SRC_DIR)exec/exec_ast.c \
+					$(SRC_DIR)exec/exec_command_setup_redir.c \
+					$(SRC_DIR)exec/exec_command.c \
+					$(SRC_DIR)exec/exec_pipe.c \
+					$(SRC_DIR)exec/executable_path_utils.c \
+					$(SRC_DIR)exec/executable_path.c \
+					$(SRC_DIR)here_doc/cmp_limiter.c \
+					$(SRC_DIR)here_doc/expand_var_here_doc.c \
+					$(SRC_DIR)here_doc/parse_limiter.c \
+					$(SRC_DIR)here_doc/proc_here_doc.c \
+					$(SRC_DIR)here_doc/set_here_doc_path.c \
+					$(SRC_DIR)here_doc/utils.c \
+					$(SRC_DIR)init/check_argc.c \
+					$(SRC_DIR)init/init_data.c \
+					$(SRC_DIR)init/parse_ast_utils.c \
+					$(SRC_DIR)init/parse_ast.c \
+					$(SRC_DIR)init/parse_envs.c \
+					$(SRC_DIR)utils/envs_utils.c \
+					$(SRC_DIR)utils/exit_pipex.c \
+					$(SRC_DIR)utils/free_2d_array.c \
+					$(SRC_DIR)utils/print_err.c \
+					$(SRC_DIR)utils/xmalloc.c
+MANDATORY_MAIN =	$(SRC_DIR)main/main.c
+BONUS_MAIN =		$(SRC_DIR)main/main_bonus.c
 
 # Generate the list of object files in OBJ_DIR from source files in SRC_DIR
 OBJ =				$(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc.c                                         :+:      :+:    :+:   */
+/*   proc_here_doc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 11:48:44 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 15:08:16 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:05:21 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-int	here_doc_error(int gnl_return_code, t_heredoc *hd_data)
+static int	_here_doc_error(int gnl_return_code, t_heredoc *hd_data)
 {
 	if (gnl_return_code != GNL_SUCCESS_FIN)
 		return (proc_gnl_err(gnl_return_code));
@@ -24,7 +24,7 @@ int	here_doc_error(int gnl_return_code, t_heredoc *hd_data)
 	}
 }
 
-int	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
+static int	_here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
 {
 	if (hd_data->leading_hyphen == true)
 		here_doc_delete_tab(new_line);
@@ -36,7 +36,7 @@ int	here_doc_success(t_data *data, char *new_line, t_heredoc *hd_data)
 	else
 	{
 		if (hd_data->quoted_limiter == false)
-			new_line = here_doc_expand_var(data, new_line);
+			new_line = expand_var_here_doc(data, new_line);
 		if (write(hd_data->fd, new_line, ft_strlen(new_line)) == -1)
 		{
 			free(new_line);
@@ -68,9 +68,9 @@ int	proc_here_doc(t_ast *node, t_data *data)
 		ft_dprintf(2, "> ");
 		new_line = get_next_line(STDIN_FILENO, &gnl_return_code);
 		if (new_line == NULL)
-			loop_flag = here_doc_error(gnl_return_code, &hd_data);
+			loop_flag = _here_doc_error(gnl_return_code, &hd_data);
 		else
-			loop_flag = here_doc_success(data, new_line, &hd_data);
+			loop_flag = _here_doc_success(data, new_line, &hd_data);
 	}
 	return (close(hd_data.fd), loop_flag);
 }

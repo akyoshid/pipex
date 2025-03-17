@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   here_doc_var.c                                     :+:      :+:    :+:   */
+/*   expand_var_here_doc.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 16:16:02 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 17:25:35 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:05:54 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-int	calc_var_key_len(char *str)
+static int	_calc_var_key_len(char *str)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ int	calc_var_key_len(char *str)
 	return (i);
 }
 
-char	*replace_by_var_value(
+static char	*_replace_by_var_value(
 	char *src, int *i, int var_key_len, char *var_value)
 {
 	char	*new;
@@ -58,7 +58,7 @@ char	*replace_by_var_value(
 	}
 }
 
-char	*here_doc_expand_var(t_data *data, char *src)
+char	*expand_var_here_doc(t_data *data, char *src)
 {
 	int		i;
 	int		var_key_len;
@@ -70,12 +70,12 @@ char	*here_doc_expand_var(t_data *data, char *src)
 	{
 		if (src[i] == '$')
 		{
-			var_key_len = calc_var_key_len(src + i);
+			var_key_len = _calc_var_key_len(src + i);
 			temp = src[i + var_key_len];
 			src[i + var_key_len] = '\0';
 			var_value = search_var_value(data, src + i + 1);
 			src[i + var_key_len] = temp;
-			src = replace_by_var_value(src, &i, var_key_len, var_value);
+			src = _replace_by_var_value(src, &i, var_key_len, var_value);
 		}
 		else
 			i++;

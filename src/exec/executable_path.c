@@ -6,11 +6,11 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 13:54:42 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 21:32:46 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:25:49 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
 char	*set_executable_path(char *cmd, t_data *data)
 {

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exec_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/18 13:45:55 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/18 13:48:23 by akyoshid         ###   ########.fr       */
+/*   Created: 2025/01/17 17:01:33 by akyoshid          #+#    #+#             */
+/*   Updated: 2025/03/17 12:25:23 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-void	free_2d_array(char **ptr)
+int	exec_ast(t_ast *node, t_data *data)
 {
-	int	i;
+	int	exit_status;
 
-	i = 0;
-	if (ptr == NULL)
-		return ;
-	while (ptr[i] != NULL)
-	{
-		free(ptr[i]);
-		i++;
-	}
-	free(ptr);
+	exit_status = 0;
+	if (node == NULL)
+		return (PIPEX_SUCCESS);
+	if (node->type == NODE_COMMAND)
+		exit_status = exec_command(node, data);
+	else if (node->type == NODE_PIPE)
+		exit_status = exec_pipe(node, data);
+	return (exit_status);
 }

@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 05:17:57 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 17:21:34 by akyoshid         ###   ########.fr       */
+/*   Created: 2025/01/07 15:54:48 by akyoshid          #+#    #+#             */
+/*   Updated: 2025/03/17 11:30:08 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	init_data(t_data *data, char *envp[])
 {
-	t_data	data;
-	int		exit_status;
-
-	init_data(&data, envp);
-	check_argc(argc, &data);
-	parse_envs(envp, &data);
-	data.ast_root = parse_ast(argc, argv, &data);
-	exit_status = exec_ast(data.ast_root, &data);
-	exit_pipex(&data, exit_status, NO_ERROR, NULL);
+	data->envp = envp;
+	data->env_list = NULL;
+	data->has_here_doc = false;
+	data->ast_root = NULL;
 }

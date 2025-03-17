@@ -6,11 +6,11 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 18:00:01 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 18:00:17 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:42:29 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../../inc/pipex.h"
 
 void	print_err(int err_code, char *param)
 {
