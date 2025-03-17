@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/01/19 18:59:30 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/03/17 06:08:31 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,30 @@
 # define PIPEX_CANNOT_EXEC 126
 # define PIPEX_CMD_NOT_FOUND 127
 
-# define NO_ERROR 0
-# define ERR_PARAM 1
-# define ERR_OPEN 2
-# define ERR_READ 3
-# define ERR_WRITE 4
-# define ERR_PIPE 5
-# define ERR_FORK 6
-# define ERR_DUP2 7
-# define ERR_CMDNOTFOUND 8
-# define ERR_ACCESS 9
-# define ERR_EXECVE 10
-# define ERR_WAITPID 11
+enum e_error_code
+{
+	NO_ERROR,
+	ERR_PARAM,
+	ERR_OPEN,
+	ERR_READ,
+	ERR_WRITE,
+	ERR_PIPE,
+	ERR_FORK,
+	ERR_DUP2,
+	ERR_CMDNOTFOUND,
+	ERR_ACCESS,
+	ERR_EXECVE,
+	ERR_WAITPID,
+};
 
-# define RAND_SUCCESS 0
-# define RAND_ERR_OPEN -1
-# define RAND_ERR_READ_FAIL -2
-# define RAND_ERR_READ_LACK -3
-# define RAND_ERR_INVALID_LEN -4
+enum e_rand_return_value
+{
+	RAND_SUCCESS,
+	RAND_ERR_OPEN,
+	RAND_ERR_READ_FAIL,
+	RAND_ERR_READ_LACK,
+	RAND_ERR_INVALID_LEN,
+};
 
 typedef struct s_data
 {
