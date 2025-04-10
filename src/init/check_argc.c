@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 05:49:34 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/03/17 11:30:18 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/04/10 07:39:59 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ static void	_not_exec_any_cmds(
 	}
 	if (outfile_path != NULL)
 	{
-		fd = open(outfile_path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (data->has_here_doc == true)
+			fd = open(outfile_path, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		else
+			fd = open(outfile_path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (fd == -1)
 			exit_pipex(data, PIPEX_GENERAL_ERROR, ERR_OPEN, outfile_path);
 		close (fd);

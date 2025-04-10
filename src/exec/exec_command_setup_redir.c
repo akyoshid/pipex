@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 17:31:53 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/03/17 12:34:59 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/04/10 07:47:14 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,10 @@ static int	_setup_redir_out(t_ast *node)
 {
 	int	fd;
 
-	fd = open(node->redir_out_path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (node->redir_out_append_flag == true)
+		fd = open(node->redir_out_path, O_WRONLY | O_CREAT | O_APPEND, 0666);
+	else
+		fd = open(node->redir_out_path, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
 	{
 		print_err(ERR_OPEN, node->redir_out_path);

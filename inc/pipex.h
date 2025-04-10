@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 04:48:46 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/03/17 12:42:52 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/04/10 00:05:24 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_ast
 	char			**argv;
 	bool			redir_in_flag;
 	bool			redir_out_flag;
+	bool			redir_out_append_flag;
 	bool			here_doc_flag;
 	char			*redir_in_path;
 	char			*redir_out_path;

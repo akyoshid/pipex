@@ -6,7 +6,7 @@
 /*   By: akyoshid <akyoshid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 19:07:49 by akyoshid          #+#    #+#             */
-/*   Updated: 2025/03/17 12:44:28 by akyoshid         ###   ########.fr       */
+/*   Updated: 2025/04/10 07:27:10 by akyoshid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_ast	*create_node(t_node_type type)
 	tmp->argv = NULL;
 	tmp->redir_in_flag = false;
 	tmp->redir_out_flag = false;
+	tmp->redir_out_append_flag = false;
 	tmp->here_doc_flag = false;
 	tmp->redir_in_path = NULL;
 	tmp->redir_out_path = NULL;
@@ -52,6 +53,8 @@ static t_ast	*_create_command(int argc, char *argv[], t_data *data, int i)
 	if (i == argc - 2)
 	{
 		tmp->redir_out_flag = true;
+		if (data->has_here_doc == true)
+			tmp->redir_out_append_flag = true;
 		tmp->redir_out_path = argv[argc - 1];
 	}
 	return (tmp);
